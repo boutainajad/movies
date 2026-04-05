@@ -560,7 +560,7 @@ window.showPage = function(name) {
   document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
   const navEl = document.getElementById('nav-' + name);
-  if (navEl) navEl.classList.add('active');
+  if (navEl) navEl.classList.add('active');  
   window.scrollTo(0,0);
   if (!initialized[name] && pageInits[name]) { 
     pageInits[name](); 
