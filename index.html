@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FILMIX — Films & Séries en Streaming</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- POPADS (bdl CODE dialek) -->
+<script type="text/javascript">
+  (function() {
+    var pop = document.createElement('script');
+    pop.type = 'text/javascript';
+    pop.async = true;
+    pop.src = 'https://popads.net/pop.js?code=YOUR_POPADS_CODE'; // بَدِّل
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(pop, s);
+  })();
+</script>
+
+<!-- ADSTERRA (bdl CODE dialek) -->
+<script type="text/javascript">
+  (function() {
+    var adsterra = document.createElement('script');
+    adsterra.type = 'text/javascript';
+    adsterra.async = true;
+    adsterra.src = 'https://plc.otherservice.com/js/ads.js?code=YOUR_ADSTERRA_CODE'; // بَدِّل
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(adsterra, s);
+  })();
+</script>
+
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --red: #e50914; --red-d: #b20710;
+  --bg: #080b12; --bg2: #0d1120; --bg3: #111827;
+  --border: #1e2535; --text: #f0f0f0; --muted: #8a93a8; --gold: #f5c518;
+}
+body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px; }
+a { text-decoration: none; color: inherit; }
+::-webkit-scrollbar { width: 5px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: #2a3040; border-radius: 3px; }
+
+.page { display: none; }
+.page.active { display: block; }
+
+.ticker-wrap { background: var(--red); overflow: hidden; padding: 5px 0; }
+.ticker-inner { display: inline-block; animation: tick 35s linear infinite; font-size: 11px; font-weight: 600; white-space: nowrap; }
+@keyframes tick { from { transform: translateX(100vw); } to { transform: translateX(-100%); } }
+
+nav {
+  background: var(--bg2); border-bottom: 1px solid var(--border);
+  padding: 0 24px; display: flex; align-items: center;
+  justify-content: space-between; height: 58px;
+  position: sticky; top: 0; z-index: 200;
+}
+.logo { font-family: 'Bebas Neue', sans-serif; font-size: 30px; letter-spacing: 2px; color: var(--red); cursor: pointer; }
+.nav-links { display: flex; gap: 4px; list-style: none; flex-wrap: wrap; }
+.nav-links li a {
+  color: var(--muted); font-size: 13px; font-weight: 500;
+  padding: 6px 14px; border-radius: 8px; display: block; cursor: pointer;
+  transition: all 0.2s;
+}
+.nav-links li a:hover { color: #fff; background: rgba(255,255,255,0.06); }
+.nav-links li a.active { color: #fff; background: rgba(229,9,20,0.15); }
+.nav-search {
+  display: flex; align-items: center;
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 8px; overflow: hidden; width: 210px;
+}
+.nav-search input { background: none; border: none; outline: none; color: var(--text); padding: 7px 12px; font-size: 13px; font-family: inherit; width: 100%; }
+.nav-search input::placeholder { color: #444; }
+.nav-search button { background: var(--red); border: none; color: #fff; padding: 7px 12px; cursor: pointer; font-size: 13px; }
+
+.banner-ad {
+  background: var(--bg3); border: 1px solid var(--border); border-radius: 10px;
+  margin: 14px 24px; padding: 10px 18px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  flex-wrap: wrap;
+}
+.ad-tag { font-size: 10px; background: var(--gold); color: #222; padding: 2px 8px; border-radius: 4px; font-weight: 700; flex-shrink: 0; }
+.banner-ad span { color: var(--muted); font-size: 13px; }
+.banner-ad a { color: var(--red); font-weight: 600; font-size: 13px; flex-shrink: 0; }
+
+.layout { display: flex; gap: 20px; padding: 0 24px 40px; align-items: flex-start; }
+.main { flex: 1; min-width: 0; }
+
+.hero {
+  position: relative; border-radius: 14px; overflow: hidden;
+  margin-bottom: 26px; height: 320px; background: #0a1020;
+}
+.hero-bg { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0.5; }
+.hero-fade { position: absolute; inset: 0; background: linear-gradient(to right, rgba(8,11,18,0.97) 30%, rgba(8,11,18,0.2) 80%); }
+.hero-content { position: relative; z-index: 2; padding: 36px 32px; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; }
+.hero-badge { display: inline-block; background: var(--red); color: #fff; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 4px; width: fit-content; margin-bottom: 8px; }
+.hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: 48px; letter-spacing: 1px; line-height: 1; margin-bottom: 6px; }
+.hero-meta { display: flex; gap: 12px; font-size: 12px; color: var(--muted); margin-bottom: 14px; }
+.hero-meta .rat { color: var(--gold); font-weight: 600; }
+.hero-desc { color: #b0b8cc; font-size: 13px; max-width: 400px; margin-bottom: 18px; line-height: 1.6; }
+.hero-btns { display: flex; gap: 10px; }
+.btn-play { background: var(--red); color: #fff; border: none; padding: 9px 22px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; display: flex; align-items: center; gap: 7px; }
+.btn-play:hover { background: var(--red-d); }
+.btn-list { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 9px 18px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
+
+.section { margin-bottom: 26px; }
+.section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.section-header h2 { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; border-left: 4px solid var(--red); padding-left: 10px; }
+.section-header a { font-size: 12px; color: var(--red); font-weight: 600; cursor: pointer; }
+
+.movies-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(138px, 1fr)); gap: 12px; }
+.movie-card {
+  background: var(--bg3); border-radius: 10px; overflow: hidden;
+  border: 1px solid var(--border); cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.movie-card:hover { border-color: var(--red); transform: translateY(-3px); }
+.movie-card:hover .card-ov { opacity: 1; }
+.movie-card img { width: 100%; height: 200px; object-fit: cover; display: block; background: var(--bg3); }
+.card-img { position: relative; }
+.card-ov {
+  position: absolute; inset: 0; height: 200px;
+  background: rgba(8,11,18,0.7);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.2s;
+}
+.card-ov .pi { width: 44px; height: 44px; background: var(--red); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.card-body { padding: 8px 10px 10px; }
+.card-title { font-size: 12px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 3px; }
+.card-meta { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); }
+.card-meta .r { color: var(--gold); }
+.watch-btn { background: var(--red); border: none; color: #fff; width: 100%; padding: 6px 0; font-size: 11px; font-weight: 700; cursor: pointer; font-family: inherit; transition: background 0.2s; letter-spacing: 0.5px; }
+.watch-btn:hover { background: var(--red-d); }
+
+.mid-ad { background: var(--bg3); border: 1px dashed #2a3040; border-radius: 10px; padding: 12px 18px; margin: 18px 0; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.mid-ad .al { display: flex; align-items: center; gap: 10px; }
+.mid-ad .ai { width: 34px; height: 34px; background: var(--red); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+.mid-ad .at strong { display: block; font-size: 13px; margin-bottom: 1px; }
+.mid-ad .at span { font-size: 12px; color: var(--muted); }
+.mid-ad a { background: var(--red); color: #fff; padding: 7px 16px; border-radius: 7px; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+
+.sidebar { width: 210px; flex-shrink: 0; display: flex; flex-direction: column; gap: 12px; }
+.side-ad { background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.side-ad .sh { background: var(--bg2); padding: 5px 12px; font-size: 10px; color: var(--gold); font-weight: 700; letter-spacing: 1px; border-bottom: 1px solid var(--border); }
+.side-ad .sb { padding: 12px; text-align: center; }
+.side-ad .si { width: 100%; height: 100px; background: var(--bg2); border-radius: 7px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 8px; font-size: 11px; color: var(--muted); gap: 5px; }
+.side-ad strong { display: block; font-size: 13px; color: var(--text); margin-bottom: 3px; }
+.side-ad p { font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: 8px; }
+.side-ad a { display: block; background: var(--red); color: #fff; padding: 7px 0; border-radius: 7px; font-size: 12px; font-weight: 700; }
+
+.modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.93); z-index: 999; align-items: center; justify-content: center; padding: 20px; }
+.modal-bg.open { display: flex; }
+.modal { background: var(--bg2); border-radius: 18px; overflow: hidden; width: 100%; max-width: 1000px; border: 1px solid var(--border); }
+.modal-header { background: var(--bg); padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); }
+.modal-header h3 { font-family: 'Bebas Neue', sans-serif; font-size: 20px; }
+.mc { background: var(--red); border: none; color: #fff; width: 30px; height: 30px; border-radius: 50%; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.mc:hover { background: var(--red-d); }
+.player-area { background: #000; min-height: 450px; display: flex; align-items: center; justify-content: center; }
+.player-area iframe { width: 100%; height: 450px; border: none; display: block; }
+.player-ph { text-align: center; padding: 40px 20px; }
+.player-ph p { color: var(--muted); font-size: 13px; margin-bottom: 5px; }
+.embed-bar { background: var(--bg); padding: 12px 18px; display: flex; gap: 8px; border-top: 1px solid var(--border); align-items: center; flex-wrap: wrap; }
+.embed-bar label { font-size: 12px; color: var(--muted); flex-shrink: 0; }
+.embed-bar input { flex: 1; background: var(--bg3); border: 1px solid var(--border); border-radius: 7px; padding: 8px 12px; color: var(--text); font-size: 12px; font-family: inherit; outline: none; min-width: 150px; }
+.embed-bar input:focus { border-color: var(--red); }
+.embed-bar button { background: var(--red); border: none; color: #fff; padding: 8px 18px; border-radius: 7px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: inherit; }
+.embed-bar button:hover { background: var(--red-d); }
+.modal-ad-b { background: #0f121c; padding: 9px 18px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); font-size: 12px; flex-wrap: wrap; }
+.modal-ad-b a { color: var(--gold); font-weight: 600; }
+
+footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 18px 24px; }
+.footer-ads { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 14px; }
+.fad { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 12px; flex-wrap: wrap; }
+.fad span { color: var(--muted); }
+.fad a { color: var(--red); font-weight: 600; }
+.footer-copy { text-align: center; font-size: 11px; color: #444; }
+
+.big-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 14px; }
+
+@media (max-width: 900px) { .sidebar { display: none; } .layout { padding: 0 16px 40px; } nav { padding: 0 16px; } }
+@media (max-width: 600px) { .nav-links { display: none; } .hero h1 { font-size: 34px; } .hero { height: 260px; } .hero-desc { display: none; } .movies-grid, .big-grid { grid-template-columns: repeat(2, 1fr); } }
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    &#9889; STREAMING GRATUIT - FILMS & SÉRIES &nbsp;&nbsp;&nbsp; &#127916; 10,000+ FILMS EN HD &nbsp;&nbsp;&nbsp; &#128293; SÉRIES POPULAIRES &nbsp;&nbsp;&nbsp; &#9889; AJOUTÉS CHAQUE JOUR &nbsp;&nbsp;&nbsp;
+  </div>
+</div>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="logo" onclick="showPage('home')">FILMIX</div>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')" id="nav-home" class="active">Accueil</a></li>
+    <li><a onclick="showPage('movies')" id="nav-movies">Films</a></li>
+    <li><a onclick="showPage('series')" id="nav-series">Séries</a></li>
+    <li><a onclick="showPage('top')" id="nav-top">Top IMDb</a></li>
+  </ul>
+  <div class="nav-search">
+    <input type="text" id="searchInput" placeholder="Rechercher..." onkeydown="if(event.key==='Enter') doSearch()">
+    <button onclick="doSearch()">&#128269;</button>
+  </div>
+</nav>
+
+<!-- PAGE ACCUEIL -->
+<div id="page-home" class="page active">
+  <div class="banner-ad"><span class="ad-tag">PUB</span><span>Streaming HD illimité - Filmix</span><a href="#">Regarder maintenant</a></div>
+  <div class="layout">
+    <div class="main">
+      <div class="hero">
+        <div class="hero-bg" style="background-image:url('https://image.tmdb.org/t/p/w1280/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg');"></div>
+        <div class="hero-fade"></div>
+        <div class="hero-content">
+          <div class="hero-badge">À LA UNE</div>
+          <h1>Avatar: The Way of Water</h1>
+          <div class="hero-meta"><span class="rat">⭐ 7.6</span><span>2022</span><span>3h 12m</span></div>
+          <p class="hero-desc">Jake Sully et Neytiri retournent sur Pandora...</p>
+          <div class="hero-btns">
+            <button class="btn-play" onclick="playMovie('Avatar: The Way of Water')">▶ REGARDER</button>
+          </div>
+        </div>
+      </div>
+      <div class="section"><div class="section-header"><h2>Films Populaires</h2><a onclick="showPage('movies')">Voir tout →</a></div><div class="movies-grid" id="home-movies"></div></div>
+      <div class="mid-ad"><div class="al"><div class="ai">📺</div><div class="at"><strong>Streaming 4K</strong><span>Sans buffering</span></div></div><a href="#">Essayer</a></div>
+      <div class="section"><div class="section-header"><h2>Séries Populaires</h2><a onclick="showPage('series')">Voir tout →</a></div><div class="movies-grid" id="home-series"></div></div>
+    </div>
+    <aside class="sidebar" id="sidebar-home"></aside>
+  </div>
+  <footer><div class="footer-ads" id="footer-home"></div><div class="footer-copy">FILMIX © 2026 - Streaming gratuit</div></footer>
+</div>
+
+<!-- PAGE FILMS -->
+<div id="page-movies" class="page">
+  <div class="banner-ad"><span class="ad-tag">PUB</span><span>Tous les films en streaming HD</span><a href="#">Regarder</a></div>
+  <div class="layout">
+    <div class="main">
+      <div class="section" style="padding-top:20px;"><div class="section-header"><h2>🎬 Tous les Films</h2></div><div class="big-grid" id="movies-grid"></div></div>
+    </div>
+    <aside class="sidebar" id="sidebar-movies"></aside>
+  </div>
+  <footer><div class="footer-ads" id="footer-movies"></div><div class="footer-copy">FILMIX © 2026</div></footer>
+</div>
+
+<!-- PAGE SERIES -->
+<div id="page-series" class="page">
+  <div class="banner-ad"><span class="ad-tag">PUB</span><span>Séries populaires en streaming</span><a href="#">Regarder</a></div>
+  <div class="layout">
+    <div class="main">
+      <div class="section" style="padding-top:20px;"><div class="section-header"><h2>📺 Toutes les Séries</h2></div><div class="big-grid" id="series-grid"></div></div>
+    </div>
+    <aside class="sidebar" id="sidebar-series"></aside>
+  </div>
+  <footer><div class="footer-ads" id="footer-series"></div><div class="footer-copy">FILMIX © 2026</div></footer>
+</div>
+
+<!-- PAGE TOP RATED -->
+<div id="page-top" class="page">
+  <div class="banner-ad"><span class="ad-tag">PUB</span><span>Les mieux notés</span><a href="#">Voir</a></div>
+  <div class="layout">
+    <div class="main">
+      <div class="section" style="padding-top:20px;"><div class="section-header"><h2>⭐ Top 20 Films & Séries</h2></div><div class="big-grid" id="top-grid"></div></div>
+    </div>
+    <aside class="sidebar" id="sidebar-top"></aside>
+  </div>
+  <footer><div class="footer-ads" id="footer-top"></div><div class="footer-copy">FILMIX © 2026</div></footer>
+</div>
+
+<!-- PAGE SEARCH -->
+<div id="page-search" class="page">
+  <div class="layout">
+    <div class="main">
+      <div class="section" style="padding-top:20px;"><div class="section-header"><h2 id="search-title">Résultats de recherche</h2></div><div class="big-grid" id="search-grid"></div></div>
+    </div>
+    <aside class="sidebar" id="sidebar-search"></aside>
+  </div>
+</div>
+
+<!-- MODAL PLAYER -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <div class="modal-header"><h3 id="modalTitle">Film / Série</h3><button class="mc" onclick="closePlayer()">✕</button></div>
+    <div class="player-area" id="playerArea">
+      <div class="player-ph" id="playerPh">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+        <p>Chargement du stream...</p>
+      </div>
+      <iframe id="playerFrame" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen style="display:none; width:100%; height:450px; border:none;"></iframe>
+    </div>
+    <div class="embed-bar">
+      <label>Lien externe:</label>
+      <input type="text" id="embedInput" placeholder="https://vidsrc.to/embed/movie/tt... ou https://...">
+      <button id="embedBtn">▶ LIRE</button>
+    </div>
+    <div class="modal-ad-b"><span>⚡ Stream gratuit HD</span><a href="#">Plus de films →</a></div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════
+// 📡 SOURCES POUR FILMS
+// ═══════════════════════════════════════════════════════════════════
+const MOVIE_SOURCES = {
+  vidsrc: (imdb) => `https://vidsrc.to/embed/movie/${imdb}`,
+  '2embed': (imdb) => `https://www.2embed.cc/embed/movie/${imdb}`,
+  embedSu: (imdb) => `https://embed.su/embed/movie/${imdb}`,
+  cinehub: (imdb) => `https://cinehub.wtf/movie/${imdb}`,
+  autoembed: (imdb) => `https://autoembed.to/movie/tmdb/${imdb}`
+};
+
+// 📡 SOURCES POUR SÉRIES (spécifiques)
+const SERIES_SOURCES = {
+  vidsrc: (imdb) => `https://vidsrc.to/embed/tv/${imdb}`,
+  '2embed': (imdb) => `https://www.2embed.cc/embed/tv/${imdb}`,
+  embedSu: (imdb) => `https://embed.su/embed/tv/${imdb}`,
+  seriesembed: (imdb) => `https://seriesembed.net/tv/${imdb}`,
+  watchseries: (imdb) => `https://watchseries.cyou/tv/${imdb}`
+};
+
+// 🎬 IMDB IDs
+const MOVIE_IMDB = {
+  "Avatar: The Way of Water": "tt1630029",
+  "Interstellar": "tt0816692",
+  "Oppenheimer": "tt15398776",
+  "Doctor Strange 2": "tt9419884",
+  "The Batman": "tt1877830",
+  "Dune: Part Two": "tt15239678",
+  "John Wick 4": "tt10366206",
+  "Deadpool & Wolverine": "tt6263850",
+  "Inside Out 2": "tt22022452",
+  "Alien: Romulus": "tt18412256",
+  "Gladiator 2": "tt9218128",
+  "Joker: Folie à Deux": "tt11315808"
+};
+
+// 📺 IMDB IDs pour les Séries
+const SERIES_IMDB = {
+  "Breaking Bad": "tt0903747",
+  "Game of Thrones": "tt0944947",
+  "Stranger Things": "tt4574334",
+  "The Last of Us": "tt3581920",
+  "The Boys": "tt1190634",
+  "House of the Dragon": "tt11198330",
+  "Peaky Blinders": "tt2442560",
+  "Ozark": "tt5071412",
+  "Dark": "tt5753856",
+  "Better Call Saul": "tt3032476"
+};
+
+// 📋 DATA
+const DATA = {
+  movies: [
+    { title:"Avatar: The Way of Water", year:"2022", rating:"7.6", poster:"https://image.tmdb.org/t/p/w300/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg" },
+    { title:"Interstellar", year:"2014", rating:"8.7", poster:"https://image.tmdb.org/t/p/w300/gEU2QniE6E77NI6lCU6MxlNBvIE.jpg" },
+    { title:"Oppenheimer", year:"2023", rating:"8.9", poster:"https://image.tmdb.org/t/p/w300/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg" },
+    { title:"The Batman", year:"2022", rating:"7.8", poster:"https://image.tmdb.org/t/p/w300/74xTEgt7R36Fpooo50r9T25onhq.jpg" },
+    { title:"Dune: Part Two", year:"2024", rating:"8.5", poster:"https://image.tmdb.org/t/p/w300/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg" },
+    { title:"John Wick 4", year:"2023", rating:"7.7", poster:"https://image.tmdb.org/t/p/w300/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg" },
+    { title:"Deadpool & Wolverine", year:"2024", rating:"7.9", poster:"https://image.tmdb.org/t/p/w300/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg" },
+    { title:"Inside Out 2", year:"2024", rating:"7.8", poster:"https://image.tmdb.org/t/p/w300/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg" }
+  ],
+  series: [
+    { title:"Breaking Bad", year:"2008", rating:"9.5", poster:"https://image.tmdb.org/t/p/w300/ggFHVNu6YYI5L9pCfOacjizRGt.jpg" },
+    { title:"Game of Thrones", year:"2011", rating:"9.3", poster:"https://image.tmdb.org/t/p/w300/1XS1oqL89opfnbLl8WnZY1O1uJx.jpg" },
+    { title:"Stranger Things", year:"2016", rating:"8.7", poster:"https://image.tmdb.org/t/p/w300/49WJfeN0moxb9IPfGn8AIqMGskD.jpg" },
+    { title:"The Last of Us", year:"2023", rating:"8.8", poster:"https://image.tmdb.org/t/p/w300/uKvVjHNqB5VmOrdxqAt2F7J78ED.jpg" },
+    { title:"The Boys", year:"2019", rating:"8.7", poster:"https://image.tmdb.org/t/p/w300/stTEycfG9928HYGEISBFaG1ngjM.jpg" },
+    { title:"House of the Dragon", year:"2022", rating:"8.5", poster:"https://image.tmdb.org/t/p/w300/z2yahl2uefxDCl0nogcRBstwruJ.jpg" },
+    { title:"Peaky Blinders", year:"2013", rating:"8.8", poster:"https://image.tmdb.org/t/p/w300/vUUqzWa2LnHIVqkaKVlVGkPaQca.jpg" },
+    { title:"Ozark", year:"2017", rating:"8.5", poster:"https://image.tmdb.org/t/p/w300/pCGyPVrI9Fzw6rE1nL1hGHJFqnE.jpg" }
+  ]
+};
+
+const ALL = [...DATA.movies, ...DATA.series];
+
+// 🃏 Fonction card
+function cardHTML(m) {
+  const safe = m.title.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+  return `<div class="movie-card" onclick="playMovie('${safe}')">
+    <div class="card-img"><img src="${m.poster}" alt="${m.title}" loading="lazy"><div class="card-ov"><div class="pi">▶</div></div></div>
+    <div class="card-body"><div class="card-title">${m.title}</div><div class="card-meta"><span>${m.year}</span><span class="r">⭐ ${m.rating}</span></div></div>
+    <button class="watch-btn" onclick="event.stopPropagation();playMovie('${safe}')">▶ REGARDER</button>
+  </div>`;
+}
+
+function fillGrid(id, items) {
+  const el = document.getElementById(id);
+  if (el) el.innerHTML = items.map(cardHTML).join('');
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// 🎬 FONCTION PRINCIPALE - Détecte automatiquement film ou série
+// ═══════════════════════════════════════════════════════════════════
+function isSeries(title) {
+  return SERIES_IMDB.hasOwnProperty(title);
+}
+
+let currentSourceIndex = 0;
+let currentSourcesList = [];
+let currentImdb = null;
+
+function playMovie(title) {
+  const isSer = isSeries(title);
+  const imdb = isSer ? SERIES_IMDB[title] : MOVIE_IMDB[title];
+  
+  if (!imdb) {
+    alert(`IMDB ID non trouvé pour: ${title}\nAjoutez-le dans MOVIE_IMDB ou SERIES_IMDB`);
+    return;
+  }
+  
+  currentImdb = imdb;
+  currentSourceIndex = 0;
+  
+  if (isSer) {
+    currentSourcesList = ['vidsrc', '2embed', 'embedSu', 'seriesembed', 'watchseries'];
+  } else {
+    currentSourcesList = ['vidsrc', '2embed', 'embedSu', 'cinehub', 'autoembed'];
+  }
+  
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalBg').classList.add('open');
+  document.getElementById('playerPh').style.display = 'block';
+  document.getElementById('playerFrame').style.display = 'none';
+  document.getElementById('playerFrame').src = '';
+  
+  loadFromSource();
+}
+
+function loadFromSource() {
+  if (currentSourceIndex >= currentSourcesList.length) {
+    document.getElementById('playerPh').innerHTML = '<p>❌ Aucune source disponible pour le moment</p><small>Réessayez plus tard ou utilisez un lien externe</small>';
+    return;
+  }
+  
+  const sourceName = currentSourcesList[currentSourceIndex];
+  let embedUrl = '';
+  
+  // Vérifier si c'est une série ou un film
+  const isSer = currentSourcesList.includes('seriesembed') || currentSourcesList.includes('watchseries');
+  
+  if (isSer) {
+    switch(sourceName) {
+      case 'vidsrc': embedUrl = `https://vidsrc.to/embed/tv/${currentImdb}`; break;
+      case '2embed': embedUrl = `https://www.2embed.cc/embed/tv/${currentImdb}`; break;
+      case 'embedSu': embedUrl = `https://embed.su/embed/tv/${currentImdb}`; break;
+      case 'seriesembed': embedUrl = `https://seriesembed.net/tv/${currentImdb}`; break;
+      case 'watchseries': embedUrl = `https://watchseries.cyou/tv/${currentImdb}`; break;
+      default: embedUrl = `https://vidsrc.to/embed/tv/${currentImdb}`;
+    }
+  } else {
+    switch(sourceName) {
+      case 'vidsrc': embedUrl = `https://vidsrc.to/embed/movie/${currentImdb}`; break;
+      case '2embed': embedUrl = `https://www.2embed.cc/embed/movie/${currentImdb}`; break;
+      case 'embedSu': embedUrl = `https://embed.su/embed/movie/${currentImdb}`; break;
+      case 'cinehub': embedUrl = `https://cinehub.wtf/movie/${currentImdb}`; break;
+      case 'autoembed': embedUrl = `https://autoembed.to/movie/tmdb/${currentImdb}`; break;
+      default: embedUrl = `https://vidsrc.to/embed/movie/${currentImdb}`;
+    }
+  }
+  
+  const playerPh = document.getElementById('playerPh');
+  playerPh.innerHTML = `<p>🔄 Chargement depuis ${sourceName}...</p><small>Si ça ne fonctionne pas, changement automatique</small>`;
+  
+  const playerFrame = document.getElementById('playerFrame');
+  
+  playerFrame.onload = function() {
+    setTimeout(() => {
+      playerFrame.style.display = 'block';
+      playerPh.style.display = 'none';
+    }, 500);
+  };
+  
+  playerFrame.onerror = function() {
+    currentSourceIndex++;
+    loadFromSource();
+  };
+  
+  playerFrame.src = embedUrl;
+  
+  // Timeout: si pas chargé après 10 secondes, essayer source suivante
+  setTimeout(() => {
+    if (playerFrame.style.display !== 'block' && currentSourceIndex < currentSourcesList.length - 1) {
+      currentSourceIndex++;
+      loadFromSource();
+    }
+  }, 10000);
+}
+
+// Fermer le player
+function closePlayer() {
+  document.getElementById('modalBg').classList.remove('open');
+  document.getElementById('playerFrame').src = '';
+  document.getElementById('playerFrame').style.display = 'none';
+  document.getElementById('playerPh').style.display = 'block';
+  document.getElementById('playerPh').innerHTML = `<svg width="48" height="48" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg><p>Chargement du stream...</p>`;
+}
+
+// Embed manuel
+document.getElementById('embedBtn').addEventListener('click', function() {
+  const url = document.getElementById('embedInput').value.trim();
+  if (!url) return;
+  const f = document.getElementById('playerFrame');
+  f.src = url;
+  f.style.display = 'block';
+  document.getElementById('playerPh').style.display = 'none';
+});
+
+document.getElementById('modalBg').addEventListener('click', function(e) {
+  if (e.target === this) closePlayer();
+});
+
+// Sidebar + Footer
+function sidebarHTML() {
+  return `<div class="side-ad"><div class="sh">PUBLICITÉ</div><div class="sb"><div class="si">📺<br>Streaming HD</div><strong>Filmix Premium</strong><p>Stream sans pub</p><a href="#">Essayer</a></div></div>
+  <div class="side-ad"><div class="sh">SPONSOR</div><div class="sb"><div class="si">🔒<br>VPN</div><strong>Débloque tout</strong><p>Streaming rapide</p><a href="#">Offre</a></div></div>
+  <div class="side-ad"><div class="sh">PROMO</div><div class="sb"><div class="si">🎬<br>Nouveautés</div><strong>Films récents</strong><p>Ajoutés chaque jour</p><a href="#">Voir</a></div></div>`;
+}
+
+function footerAdsHTML() {
+  return `<div class="fad"><span>📺 4K Streaming</span><a href="#">Regarder</a></div>
+  <div class="fad"><span>⚡ Nouveaux films</span><a href="#">Voir</a></div>
+  <div class="fad"><span>🎬 Séries populaires</span><a href="#">Découvrir</a></div>
+  <div class="fad"><span>🔒 VPN gratuit</span><a href="#">Essayer</a></div>`;
+}
+
+// Initialisation des pages
+function initHome() {
+  fillGrid('home-movies', DATA.movies.slice(0, 6));
+  fillGrid('home-series', DATA.series.slice(0, 6));
+  document.getElementById('sidebar-home').innerHTML = sidebarHTML();
+  document.getElementById('footer-home').innerHTML = footerAdsHTML();
+}
+
+function initMovies() {
+  fillGrid('movies-grid', DATA.movies);
+  document.getElementById('sidebar-movies').innerHTML = sidebarHTML();
+  document.getElementById('footer-movies').innerHTML = footerAdsHTML();
+}
+
+function initSeries() {
+  fillGrid('series-grid', DATA.series);
+  document.getElementById('sidebar-series').innerHTML = sidebarHTML();
+  document.getElementById('footer-series').innerHTML = footerAdsHTML();
+}
+
+function initTop() {
+  const top = ALL.slice().sort((a,b) => parseFloat(b.rating) - parseFloat(a.rating)).slice(0, 16);
+  fillGrid('top-grid', top);
+  document.getElementById('sidebar-top').innerHTML = sidebarHTML();
+  document.getElementById('footer-top').innerHTML = footerAdsHTML();
+}
+
+// Page router
+const pageInits = { movies: initMovies, series: initSeries, top: initTop };
+const initialized = {};
+
+window.showPage = function(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  const navEl = document.getElementById('nav-' + name);
+  if (navEl) navEl.classList.add('active');
+  window.scrollTo(0,0);
+  if (!initialized[name] && pageInits[name]) { 
+    pageInits[name](); 
+    initialized[name] = true; 
+  }
+};
+
+
+
+// Search
+window.doSearch = function() {
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  if (!q) return;
+  const results = ALL.filter(m => m.title.toLowerCase().includes(q));
+  document.getElementById('search-title').textContent = `Résultats pour "${q}" (${results.length})`;
+  fillGrid('search-grid', results);
+  document.getElementById('sidebar-search').innerHTML = sidebarHTML();
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-search').classList.add('active');
+};
+
+// Démarrer
+initHome();
+</script>
+</body>
+</html>
