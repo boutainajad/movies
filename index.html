@@ -6,20 +6,15 @@
 <title>FILMIX — Watch Free Movies & Series</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
-<!-- POPADS CODE - بَدِّل بالكود ديالك -->
-<script type="text/javascript" data-cfasync="false">
-  var _pop = _pop || [];
-  _pop.push(['siteId', 12345678]);  // حط الرقم ديالك هنا
-  _pop.push(['minBid', 0]);
-  _pop.push(['popundersPerIP', 0]);
-  _pop.push(['delayBetween', 0]);
-  _pop.push(['default', false]);
-  _pop.push(['defaultPerDay', 0]);
+<!-- كود Adsterra فقط (حط الرقم ديالك) -->
+<script type="text/javascript">
   (function() {
-    var pa = document.createElement('script'); pa.type = 'text/javascript'; pa.async = true;
-    var s = document.getElementsByTagName('script')[0]; 
-    pa.src = '//c1.popads.net/pop.js';
-    s.parentNode.insertBefore(pa, s);
+    var ad = document.createElement('script');
+    ad.type = 'text/javascript';
+    ad.async = true;
+    ad.src = 'https://plrge.xyz/5705482/popunder.js';  // حط الرقم ديالك هنا
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ad, s);
   })();
 </script>
 
@@ -220,7 +215,7 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 1
 </div>
 
 <script>
-// ============ SOURCES (MISE À JOUR AVEC PLUS DE SOURCES) ============
+// ============ SOURCES ============
 const MOVIE_SOURCES = {
   vidsrc: (imdb) => `https://vidsrc.to/embed/movie/${imdb}`,
   '2embed': (imdb) => `https://www.2embed.cc/embed/movie/${imdb}`,
@@ -236,7 +231,7 @@ const SERIES_SOURCES = {
   vidbinge: (imdb) => `https://vidbinge.com/embed/tv/${imdb}`
 };
 
-// ============ IMDB IDs (MISES À JOUR) ============
+// ============ IMDB IDs ============
 const MOVIE_IMDB = {
   "Avatar: The Way of Water": "tt1630029",
   "Interstellar": "tt0816692",
@@ -246,8 +241,7 @@ const MOVIE_IMDB = {
   "John Wick 4": "tt10366206",
   "Deadpool & Wolverine": "tt6263850",
   "Inception": "tt1375666",
-  "The Dark Knight": "tt0468569",
-  "Gladiator": "tt0172495"
+  "The Dark Knight": "tt0468569"
 };
 
 const SERIES_IMDB = {
@@ -256,8 +250,7 @@ const SERIES_IMDB = {
   "Stranger Things": "tt4574334",
   "The Last of Us": "tt3581920",
   "The Boys": "tt1190634",
-  "Better Call Saul": "tt3032476",
-  "Peaky Blinders": "tt2442560"
+  "Better Call Saul": "tt3032476"
 };
 
 // ============ DATA ============
@@ -284,7 +277,6 @@ const DATA = {
 
 const ALL = [...DATA.movies, ...DATA.series];
 
-// ============ FUNCTIONS ============
 function cardHTML(m) {
   const safeTitle = m.title.replace(/'/g, "\\'");
   return `<div class="movie-card" onclick="playMovie('${safeTitle}')">
@@ -477,6 +469,3 @@ initHome();
 </script>
 </body>
 </html>
-
- 
-
