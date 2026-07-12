@@ -1,471 +1,179 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FILMIX — Watch Free Movies & Series</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- AD SCRIPTS START (RESTORED TO HEAD) -->
+  <script src="https://pl29405088.profitablecpmratenetwork.com/45/35/95/453595bfefbeac6e9ef0eb61048d7ff5.js"></script>
+  <!-- AD SCRIPTS END -->
 
-<!-- كود Adsterra فقط (حط الرقم ديالك) -->
-<script type="text/javascript">
-  (function() {
-    var ad = document.createElement('script');
-    ad.type = 'text/javascript';
-    ad.async = true;
-    ad.src = 'https://plrge.xyz/5705482/popunder.js';  // حط الرقم ديالك هنا
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(ad, s);
-  })();
-</script>
+  <title>DRAMA MIX — Streaming Gratuit de Films & Séries du Monde Entier</title>
+  <meta name="description"
+    content="Regardez vos films et séries préférés en streaming HD gratuit. Action, Comédie, Thriller, Romance, Science-Fiction — Le meilleur du cinéma mondial sur DRAMA MIX." />
+  <meta name="keywords" content="streaming, movies, series, films, action, comedie, thriller, drama mix, gratuit, hd, monde" />
+  
+  <!-- SEO / Schema.org -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "DRAMA MIX",
+      "url": "https://dramamix.com/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://dramamix.com/?s={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  </script>
 
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-:root {
-  --red: #e50914; --red-d: #b20710;
-  --bg: #080b12; --bg2: #0d1120; --bg3: #111827;
-  --border: #1e2535; --text: #f0f0f0; --muted: #8a93a8; --gold: #f5c518;
-}
-body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px; }
-a { text-decoration: none; color: inherit; }
-.page { display: none; }
-.page.active { display: block; }
-.ticker-wrap { background: var(--red); overflow: hidden; padding: 5px 0; }
-.ticker-inner { display: inline-block; animation: tick 35s linear infinite; font-size: 11px; font-weight: 600; white-space: nowrap; }
-@keyframes tick { from { transform: translateX(100vw); } to { transform: translateX(-100%); } }
-nav {
-  background: var(--bg2); border-bottom: 1px solid var(--border);
-  padding: 0 24px; display: flex; align-items: center;
-  justify-content: space-between; height: 58px;
-  position: sticky; top: 0; z-index: 200;
-}
-.logo { font-family: 'Bebas Neue', sans-serif; font-size: 30px; letter-spacing: 2px; color: var(--red); cursor: pointer; }
-.nav-links { display: flex; gap: 4px; list-style: none; flex-wrap: wrap; }
-.nav-links li a {
-  color: var(--muted); font-size: 13px; font-weight: 500;
-  padding: 6px 14px; border-radius: 8px; display: block; cursor: pointer;
-  transition: all 0.2s;
-}
-.nav-links li a:hover { color: #fff; background: rgba(255,255,255,0.06); }
-.nav-links li a.active { color: #fff; background: rgba(229,9,20,0.15); }
-.nav-search {
-  display: flex; align-items: center;
-  background: var(--bg3); border: 1px solid var(--border);
-  border-radius: 8px; overflow: hidden; width: 210px;
-}
-.nav-search input { background: none; border: none; outline: none; color: var(--text); padding: 7px 12px; font-size: 13px; width: 100%; }
-.nav-search input::placeholder { color: #444; }
-.nav-search button { background: var(--red); border: none; color: #fff; padding: 7px 12px; cursor: pointer; font-size: 13px; }
-.banner-ad {
-  background: var(--bg3); border: 1px solid var(--border); border-radius: 10px;
-  margin: 14px 24px; padding: 10px 18px;
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  flex-wrap: wrap;
-}
-.ad-tag { font-size: 10px; background: var(--gold); color: #222; padding: 2px 8px; border-radius: 4px; font-weight: 700; }
-.banner-ad span { color: var(--muted); font-size: 13px; }
-.banner-ad a { color: var(--red); font-weight: 600; }
-.layout { display: flex; gap: 20px; padding: 0 24px 40px; align-items: flex-start; }
-.main { flex: 1; min-width: 0; }
-.hero {
-  position: relative; border-radius: 14px; overflow: hidden;
-  margin-bottom: 26px; height: 320px; background: #0a1020;
-}
-.hero-bg { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0.5; }
-.hero-fade { position: absolute; inset: 0; background: linear-gradient(to right, rgba(8,11,18,0.97) 30%, rgba(8,11,18,0.2) 80%); }
-.hero-content { position: relative; z-index: 2; padding: 36px 32px; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; }
-.hero-badge { display: inline-block; background: var(--red); color: #fff; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 4px; width: fit-content; margin-bottom: 8px; }
-.hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: 48px; margin-bottom: 6px; }
-.hero-meta { display: flex; gap: 12px; font-size: 12px; color: var(--muted); margin-bottom: 14px; }
-.hero-meta .rat { color: var(--gold); }
-.hero-desc { color: #b0b8cc; font-size: 13px; max-width: 400px; margin-bottom: 18px; }
-.btn-play { background: var(--red); color: #fff; border: none; padding: 9px 22px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 7px; }
-.btn-play:hover { background: var(--red-d); }
-.section { margin-bottom: 26px; }
-.section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-.section-header h2 { font-family: 'Bebas Neue', sans-serif; font-size: 20px; border-left: 4px solid var(--red); padding-left: 10px; }
-.section-header a { font-size: 12px; color: var(--red); font-weight: 600; cursor: pointer; }
-.movies-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(138px, 1fr)); gap: 12px; }
-.movie-card {
-  background: var(--bg3); border-radius: 10px; overflow: hidden;
-  border: 1px solid var(--border); cursor: pointer;
-  transition: border-color 0.2s, transform 0.2s;
-}
-.movie-card:hover { border-color: var(--red); transform: translateY(-3px); }
-.movie-card:hover .card-ov { opacity: 1; }
-.movie-card img { width: 100%; height: 200px; object-fit: cover; display: block; }
-.card-img { position: relative; }
-.card-ov {
-  position: absolute; inset: 0; height: 200px;
-  background: rgba(8,11,18,0.7);
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; transition: opacity 0.2s;
-}
-.card-ov .pi { width: 44px; height: 44px; background: var(--red); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; }
-.card-body { padding: 8px 10px 10px; }
-.card-title { font-size: 12px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 3px; }
-.card-meta { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); }
-.card-meta .r { color: var(--gold); }
-.watch-btn { background: var(--red); border: none; color: #fff; width: 100%; padding: 6px 0; font-size: 11px; font-weight: 700; cursor: pointer; margin-top: 6px; border-radius: 6px; }
-.watch-btn:hover { background: var(--red-d); }
-.mid-ad { background: var(--bg3); border: 1px dashed #2a3040; border-radius: 10px; padding: 12px 18px; margin: 18px 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-.mid-ad .al { display: flex; align-items: center; gap: 10px; }
-.mid-ad .ai { width: 34px; height: 34px; background: var(--red); border-radius: 7px; display: flex; align-items: center; justify-content: center; }
-.mid-ad a { background: var(--red); color: #fff; padding: 7px 16px; border-radius: 7px; font-size: 12px; font-weight: 700; }
-.sidebar { width: 210px; flex-shrink: 0; display: flex; flex-direction: column; gap: 12px; }
-.side-ad { background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-.side-ad .sh { background: var(--bg2); padding: 5px 12px; font-size: 10px; color: var(--gold); font-weight: 700; border-bottom: 1px solid var(--border); }
-.side-ad .sb { padding: 12px; text-align: center; }
-.side-ad .si { width: 100%; height: 100px; background: var(--bg2); border-radius: 7px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 8px; font-size: 11px; }
-.side-ad a { display: block; background: var(--red); color: #fff; padding: 7px 0; border-radius: 7px; font-size: 12px; font-weight: 700; }
-.modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.93); z-index: 999; align-items: center; justify-content: center; padding: 20px; }
-.modal-bg.open { display: flex; }
-.modal { background: var(--bg2); border-radius: 18px; overflow: hidden; width: 100%; max-width: 1000px; border: 1px solid var(--border); }
-.modal-header { background: var(--bg); padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); }
-.modal-header h3 { font-family: 'Bebas Neue', sans-serif; font-size: 20px; }
-.mc { background: var(--red); border: none; color: #fff; width: 30px; height: 30px; border-radius: 50%; font-size: 15px; cursor: pointer; }
-.player-area { background: #000; min-height: 450px; display: flex; align-items: center; justify-content: center; }
-.player-area iframe { width: 100%; height: 450px; border: none; display: block; }
-.player-ph { text-align: center; padding: 40px 20px; }
-.player-ph p { color: var(--muted); font-size: 13px; }
-.embed-bar { background: var(--bg); padding: 12px 18px; display: flex; gap: 8px; border-top: 1px solid var(--border); align-items: center; flex-wrap: wrap; }
-.embed-bar input { flex: 1; background: var(--bg3); border: 1px solid var(--border); border-radius: 7px; padding: 8px 12px; color: var(--text); }
-.embed-bar button { background: var(--red); border: none; color: #fff; padding: 8px 18px; border-radius: 7px; cursor: pointer; }
-.modal-ad-b { background: #0f121c; padding: 9px 18px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); font-size: 12px; flex-wrap: wrap; }
-.modal-ad-b a { color: var(--gold); font-weight: 600; }
-footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 18px 24px; }
-.footer-ads { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 14px; }
-.fad { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
-.fad a { color: var(--red); font-weight: 600; }
-.footer-copy { text-align: center; font-size: 11px; color: #444; }
-.big-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 14px; }
-@media (max-width: 900px) { .sidebar { display: none; } .layout { padding: 0 16px 40px; } }
-@media (max-width: 600px) { .nav-links { display: none; } .hero h1 { font-size: 34px; } .hero { height: 260px; } .movies-grid { grid-template-columns: repeat(2, 1fr); } }
-</style>
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Bebas+Neue&display=swap"
+    rel="stylesheet">
+
 </head>
+
 <body>
+  <div id="app">
+    <!-- Sidebar Filters -->
+    <aside class="sidebar">
+      <div class="logo" onclick="window.location.reload()">DRAMA MIX</div>
 
-<div class="ticker-wrap"><div class="ticker-inner">⭐ STREAMING GRATUIT - FILMS & SÉRIES EN HD ⭐ 10,000+ CONTENUS ⭐ AJOUTÉS CHAQUE JOUR ⭐</div></div>
+      <nav class="side-nav">
+        <div class="nav-group">
+          <span class="group-label">Menu</span>
+          <a href="#" class="nav-item active" data-page="home"><span>🏠</span> Accueil</a>
+          <a href="#" class="nav-item" data-page="movies"><span>🎬</span> Films</a>
+          <a href="#" class="nav-item" data-page="series"><span>📺</span> Séries</a>
+          <a href="#" class="nav-item" data-page="watchlist"><span>🔖</span> Watchlist</a>
+        </div>
+      </nav>
+    </aside>
 
-<nav>
-  <div class="logo" onclick="showPage('home')">FILMIX</div>
-  <ul class="nav-links">
-    <li><a onclick="showPage('home')" id="nav-home" class="active">Accueil</a></li>
-    <li><a onclick="showPage('movies')" id="nav-movies">Films</a></li>
-    <li><a onclick="showPage('series')" id="nav-series">Séries</a></li>
-    <li><a onclick="showPage('top')" id="nav-top">Top IMDb</a></li>
-  </ul>
-  <div class="nav-search">
-    <input type="text" id="searchInput" placeholder="Rechercher..." onkeydown="if(event.key==='Enter') doSearch()">
-    <button onclick="doSearch()">🔍</button>
-  </div>
-</nav>
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="top-bar">
+        <div class="mobile-logo" onclick="window.location.reload()">DRAMA MIX</div>
+        <div class="search-container">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchInput" placeholder="Rechercher un film, une série..." autocomplete="off">
+          <div id="searchSuggestions" class="search-suggestions"></div>
+        </div>
+        <div class="user-actions">
+          <button class="btn-icon" title="Notifications">🔔</button>
+          <div class="user-profile">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="User Avatar">
+          </div>
+        </div>
+      </header>
 
-<!-- HOME PAGE -->
-<div id="page-home" class="page active">
-  <div class="banner-ad"><span class="ad-tag">PUB</span><span>Streaming HD illimité - Filmix</span><a href="#">Regarder maintenant</a></div>
-  <div class="layout">
-    <div class="main">
-      <div class="hero">
-        <div class="hero-bg" style="background-image:url('https://image.tmdb.org/t/p/w1280/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg');"></div>
-        <div class="hero-fade"></div>
-        <div class="hero-content">
-          <div class="hero-badge">À LA UNE</div>
-          <h1>Avatar: The Way of Water</h1>
-          <div class="hero-meta"><span class="rat">⭐ 7.6</span><span>2022</span><span>3h 12m</span></div>
-          <p class="hero-desc">Jake Sully et Neytiri retournent sur Pandora...</p>
-          <button class="btn-play" onclick="playMovie('Avatar: The Way of Water')">▶ REGARDER</button>
+      <!-- Pages -->
+      <div id="page-content" class="content-area">
+        <!-- Mobile Genre List -->
+        <div id="mobile-genre-list" class="genre-list mobile-genres"></div>
+
+        <!-- Hero Section (only on home) -->
+        <div id="hero-wrapper"></div>
+
+        <!-- Content Grid -->
+        <section class="section">
+          <!-- Horizontal Genre Bar -->
+          <div id="genre-list" class="genre-list top-genres"></div>
+
+          <div class="section-header">
+            <h2 id="grid-title">Films Populaires du Monde</h2>
+            <div class="grid-options">
+              <select id="sortSelect">
+                <option value="popularity.desc">Populaire</option>
+                <option value="vote_average.desc">Mieux notés</option>
+                <option value="primary_release_date.desc">Nouveautés</option>
+              </select>
+            </div>
+          </div>
+          <div id="movie-grid" class="movie-grid">
+            <!-- Skeletons -->
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+          </div>
+          <div id="load-more-trigger" class="load-more-trigger">
+            <div class="spinner"></div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Player Modal -->
+    <div id="playerModal" class="modal-bg">
+      <div class="modal">
+        <button class="modal-close" onclick="closePlayer()">✕</button>
+
+        <div class="modal-body">
+          <div class="player-wrapper">
+            <iframe id="playerFrame" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen
+              referrerpolicy="origin"></iframe>
+            <div class="source-bar" id="sourceBar"></div>
+          </div>
+
+          <div class="movie-details">
+            <div class="details-main">
+              <h2 id="detailTitle">Chargement...</h2>
+              <div class="meta-tags">
+                <span id="detailYear"></span>
+                <span id="detailRating" class="rating-tag"></span>
+                <span id="detailRuntime"></span>
+              </div>
+              <p id="detailOverview"></p>
+              
+              <!-- Share Buttons -->
+              <div class="share-section">
+                <span>Partager avec vos amis :</span>
+                <div class="share-buttons">
+                  <button class="share-btn wa" onclick="shareMovie('whatsapp')">WhatsApp</button>
+                  <button class="share-btn tg" onclick="shareMovie('telegram')">Telegram</button>
+                  <button class="share-btn fb" onclick="shareMovie('facebook')">Facebook</button>
+                </div>
+              </div>
+
+              <div class="cast-list" id="detailCast"></div>
+            </div>
+            <div class="related-section">
+              <h3>Voulez-vous aussi regarder ?</h3>
+              <div id="relatedGrid" class="related-grid"></div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="section"><div class="section-header"><h2>Films Populaires</h2><a onclick="showPage('movies')">Voir tout →</a></div><div class="movies-grid" id="home-movies"></div></div>
-      <div class="mid-ad"><div class="al"><div class="ai">📺</div><div class="at"><strong>Streaming 4K</strong><span>Sans buffering</span></div></div><a href="#">Essayer</a></div>
-      <div class="section"><div class="section-header"><h2>Séries Populaires</h2><a onclick="showPage('series')">Voir tout →</a></div><div class="movies-grid" id="home-series"></div></div>
     </div>
-    <aside class="sidebar" id="sidebar-home"></aside>
   </div>
-  <footer>
-    <div class="footer-ads" id="footer-home"></div>
-    <div class="footer-copy">FILMIX © 2026 - Streaming gratuit</div>
-    <div style="text-align:center; margin-top:15px;"><a href="about.html" style="color:#e50914; margin:0 10px;">About</a> | <a href="privacy.html" style="color:#e50914; margin:0 10px;">Privacy</a> | <a href="contact.html" style="color:#e50914; margin:0 10px;">Contact</a></div>
-  </footer>
-</div>
 
-<!-- MOVIES PAGE -->
-<div id="page-movies" class="page"><div class="layout"><div class="main"><div class="section" style="padding-top:20px;"><div class="section-header"><h2>🎬 Tous les Films</h2></div><div class="big-grid" id="movies-grid"></div></div></div><aside class="sidebar" id="sidebar-movies"></aside></div><footer><div class="footer-ads" id="footer-movies"></div><div class="footer-copy">FILMIX © 2026</div></footer></div>
+  <!-- Mobile Bottom Navigation -->
+  <nav class="mobile-nav">
+    <a href="#" class="nav-item active" data-page="home">
+      <span class="nav-icon">🏠</span>
+      <span class="nav-text">Accueil</span>
+    </a>
+    <a href="#" class="nav-item" data-page="movies">
+      <span class="nav-icon">🎬</span>
+      <span class="nav-text">Films</span>
+    </a>
+    <a href="#" class="nav-item" data-page="series">
+      <span class="nav-icon">📺</span>
+      <span class="nav-text">Séries</span>
+    </a>
+    <a href="#" class="nav-item" data-page="watchlist">
+      <span class="nav-icon">🔖</span>
+      <span class="nav-text">Watchlist</span>
+    </a>
+  </nav>
 
-<!-- SERIES PAGE -->
-<div id="page-series" class="page"><div class="layout"><div class="main"><div class="section" style="padding-top:20px;"><div class="section-header"><h2>📺 Séries</h2></div><div class="big-grid" id="series-grid"></div></div></div><aside class="sidebar" id="sidebar-series"></aside></div><footer><div class="footer-ads" id="footer-series"></div><div class="footer-copy">FILMIX © 2026</div></footer></div>
-
-<!-- TOP RATED PAGE -->
-<div id="page-top" class="page"><div class="layout"><div class="main"><div class="section" style="padding-top:20px;"><div class="section-header"><h2>⭐ Top 20 Films & Séries</h2></div><div class="big-grid" id="top-grid"></div></div></div><aside class="sidebar" id="sidebar-top"></aside></div><footer><div class="footer-ads" id="footer-top"></div><div class="footer-copy">FILMIX © 2026</div></footer></div>
-
-<!-- SEARCH PAGE -->
-<div id="page-search" class="page"><div class="layout"><div class="main"><div class="section" style="padding-top:20px;"><div class="section-header"><h2 id="search-title">Résultats</h2></div><div class="big-grid" id="search-grid"></div></div></div><aside class="sidebar" id="sidebar-search"></aside></div></div>
-
-<!-- MODAL -->
-<div class="modal-bg" id="modalBg">
-  <div class="modal">
-    <div class="modal-header"><h3 id="modalTitle">Film</h3><button class="mc" onclick="closePlayer()">✕</button></div>
-    <div class="player-area">
-      <div class="player-ph" id="playerPh"><p>Chargement du stream...</p></div>
-      <iframe id="playerFrame" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen style="display:none; width:100%; height:450px;"></iframe>
-    </div>
-    <div class="embed-bar"><label>Lien externe:</label><input type="text" id="embedInput" placeholder="https://vidsrc.to/embed/movie/tt..."><button id="embedBtn">▶ LIRE</button></div>
-    <div class="modal-ad-b"><span>⚡ Stream gratuit HD</span><a href="#">Plus de films →</a></div>
-  </div>
-</div>
-
-<script>
-// ============ SOURCES ============
-const MOVIE_SOURCES = {
-  vidsrc: (imdb) => `https://vidsrc.to/embed/movie/${imdb}`,
-  '2embed': (imdb) => `https://www.2embed.cc/embed/movie/${imdb}`,
-  embedSu: (imdb) => `https://embed.su/embed/movie/${imdb}`,
-  vidbinge: (imdb) => `https://vidbinge.com/embed/movie/${imdb}`,
-  autoembed: (imdb) => `https://autoembed.to/movie/tmdb/${imdb.replace('tt', '')}`
-};
-
-const SERIES_SOURCES = {
-  vidsrc: (imdb) => `https://vidsrc.to/embed/tv/${imdb}`,
-  '2embed': (imdb) => `https://www.2embed.cc/embed/tv/${imdb}`,
-  embedSu: (imdb) => `https://embed.su/embed/tv/${imdb}`,
-  vidbinge: (imdb) => `https://vidbinge.com/embed/tv/${imdb}`
-};
-
-// ============ IMDB IDs ============
-const MOVIE_IMDB = {
-  "Avatar: The Way of Water": "tt1630029",
-  "Interstellar": "tt0816692",
-  "Oppenheimer": "tt15398776",
-  "The Batman": "tt1877830",
-  "Dune: Part Two": "tt15239678",
-  "John Wick 4": "tt10366206",
-  "Deadpool & Wolverine": "tt6263850",
-  "Inception": "tt1375666",
-  "The Dark Knight": "tt0468569"
-};
-
-const SERIES_IMDB = {
-  "Breaking Bad": "tt0903747",
-  "Game of Thrones": "tt0944947",
-  "Stranger Things": "tt4574334",
-  "The Last of Us": "tt3581920",
-  "The Boys": "tt1190634",
-  "Better Call Saul": "tt3032476"
-};
-
-// ============ DATA ============
-const DATA = {
-  movies: [
-    { title:"Avatar: The Way of Water", year:"2022", rating:"7.6", poster:"https://image.tmdb.org/t/p/w300/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg" },
-    { title:"Interstellar", year:"2014", rating:"8.7", poster:"https://image.tmdb.org/t/p/w300/gEU2QniE6E77NI6lCU6MxlNBvIE.jpg" },
-    { title:"Oppenheimer", year:"2023", rating:"8.9", poster:"https://image.tmdb.org/t/p/w300/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg" },
-    { title:"The Batman", year:"2022", rating:"7.8", poster:"https://image.tmdb.org/t/p/w300/74xTEgt7R36Fpooo50r9T25onhq.jpg" },
-    { title:"John Wick 4", year:"2023", rating:"7.7", poster:"https://image.tmdb.org/t/p/w300/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg" },
-    { title:"Deadpool & Wolverine", year:"2024", rating:"7.9", poster:"https://image.tmdb.org/t/p/w300/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg" },
-    { title:"Inception", year:"2010", rating:"8.8", poster:"https://image.tmdb.org/t/p/w300/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg" },
-    { title:"The Dark Knight", year:"2008", rating:"9.0", poster:"https://image.tmdb.org/t/p/w300/qJ2tW6WMUDux911r6m7haRef0WH.jpg" }
-  ],
-  series: [
-    { title:"Breaking Bad", year:"2008", rating:"9.5", poster:"https://image.tmdb.org/t/p/w300/ggFHVNu6YYI5L9pCfOacjizRGt.jpg" },
-    { title:"Game of Thrones", year:"2011", rating:"9.3", poster:"https://image.tmdb.org/t/p/w300/1XS1oqL89opfnbLl8WnZY1O1uJx.jpg" },
-    { title:"Stranger Things", year:"2016", rating:"8.7", poster:"https://image.tmdb.org/t/p/w300/49WJfeN0moxb9IPfGn8AIqMGskD.jpg" },
-    { title:"The Last of Us", year:"2023", rating:"8.8", poster:"https://image.tmdb.org/t/p/w300/uKvVjHNqB5VmOrdxqAt2F7J78ED.jpg" },
-    { title:"The Boys", year:"2019", rating:"8.7", poster:"https://image.tmdb.org/t/p/w300/stTEycfG9928HYGEISBFaG1ngjM.jpg" },
-    { title:"Better Call Saul", year:"2015", rating:"9.0", poster:"https://image.tmdb.org/t/p/w300/fC2HDm5t0kR9K1kCMWNkbGYaoxM.jpg" }
-  ]
-};
-
-const ALL = [...DATA.movies, ...DATA.series];
-
-function cardHTML(m) {
-  const safeTitle = m.title.replace(/'/g, "\\'");
-  return `<div class="movie-card" onclick="playMovie('${safeTitle}')">
-    <div class="card-img"><img src="${m.poster}" loading="lazy" onerror="this.src='https://placehold.co/300x450/1a1f2e/white?text=No+Poster'"><div class="card-ov"><div class="pi">▶</div></div></div>
-    <div class="card-body"><div class="card-title">${m.title}</div><div class="card-meta"><span>${m.year}</span><span class="r">⭐ ${m.rating}</span></div></div>
-    <button class="watch-btn" onclick="event.stopPropagation();playMovie('${safeTitle}')">▶ REGARDER</button>
-  </div>`;
-}
-
-function fillGrid(id, items) {
-  const el = document.getElementById(id);
-  if (el) el.innerHTML = items.map(cardHTML).join('');
-}
-
-function isSeries(title) {
-  return SERIES_IMDB.hasOwnProperty(title);
-}
-
-let currentImdb = null;
-let currentSourceIndex = 0;
-let currentSources = [];
-
-function playMovie(title) {
-  const isSer = isSeries(title);
-  const imdb = isSer ? SERIES_IMDB[title] : MOVIE_IMDB[title];
-  
-  if (!imdb) {
-    alert(`IMDB ID non trouvé pour: ${title}\nVous pouvez utiliser le lien externe ci-dessous.`);
-    document.getElementById('modalTitle').textContent = title;
-    document.getElementById('modalBg').classList.add('open');
-    document.getElementById('playerPh').style.display = 'block';
-    document.getElementById('playerFrame').style.display = 'none';
-    return;
-  }
-  
-  currentImdb = imdb;
-  currentSourceIndex = 0;
-  currentSources = isSer ? ['vidsrc', '2embed', 'embedSu', 'vidbinge'] : ['vidsrc', '2embed', 'embedSu', 'vidbinge', 'autoembed'];
-  
-  document.getElementById('modalTitle').textContent = title;
-  document.getElementById('modalBg').classList.add('open');
-  document.getElementById('playerPh').style.display = 'block';
-  document.getElementById('playerFrame').style.display = 'none';
-  document.getElementById('playerFrame').src = '';
-  
-  loadNextSource();
-}
-
-function loadNextSource() {
-  if (currentSourceIndex >= currentSources.length) {
-    document.getElementById('playerPh').innerHTML = '<p>❌ Aucune source disponible</p><small>Essayez avec un lien externe ci-dessous</small>';
-    return;
-  }
-  
-  const sourceName = currentSources[currentSourceIndex];
-  const isSer = SERIES_IMDB.hasOwnProperty(Object.keys(SERIES_IMDB).find(key => SERIES_IMDB[key] === currentImdb));
-  
-  let embedUrl = '';
-  if (isSer) {
-    switch(sourceName) {
-      case 'vidsrc': embedUrl = SERIES_SOURCES.vidsrc(currentImdb); break;
-      case '2embed': embedUrl = SERIES_SOURCES['2embed'](currentImdb); break;
-      case 'embedSu': embedUrl = SERIES_SOURCES.embedSu(currentImdb); break;
-      case 'vidbinge': embedUrl = SERIES_SOURCES.vidbinge(currentImdb); break;
-      default: embedUrl = SERIES_SOURCES.vidsrc(currentImdb);
-    }
-  } else {
-    switch(sourceName) {
-      case 'vidsrc': embedUrl = MOVIE_SOURCES.vidsrc(currentImdb); break;
-      case '2embed': embedUrl = MOVIE_SOURCES['2embed'](currentImdb); break;
-      case 'embedSu': embedUrl = MOVIE_SOURCES.embedSu(currentImdb); break;
-      case 'vidbinge': embedUrl = MOVIE_SOURCES.vidbinge(currentImdb); break;
-      case 'autoembed': embedUrl = MOVIE_SOURCES.autoembed(currentImdb); break;
-      default: embedUrl = MOVIE_SOURCES.vidsrc(currentImdb);
-    }
-  }
-  
-  const playerPh = document.getElementById('playerPh');
-  playerPh.innerHTML = `<p>🔄 Chargement depuis ${sourceName}...</p><small>Si ça ne fonctionne pas, changement automatique</small>`;
-  
-  const playerFrame = document.getElementById('playerFrame');
-  
-  playerFrame.onload = function() {
-    setTimeout(() => {
-      playerFrame.style.display = 'block';
-      playerPh.style.display = 'none';
-    }, 500);
-  };
-  
-  playerFrame.onerror = function() {
-    currentSourceIndex++;
-    loadNextSource();
-  };
-  
-  playerFrame.src = embedUrl;
-  
-  setTimeout(() => {
-    if (playerFrame.style.display !== 'block' && currentSourceIndex < currentSources.length - 1) {
-      currentSourceIndex++;
-      loadNextSource();
-    }
-  }, 10000);
-}
-
-function closePlayer() {
-  document.getElementById('modalBg').classList.remove('open');
-  document.getElementById('playerFrame').src = '';
-  document.getElementById('playerFrame').style.display = 'none';
-  document.getElementById('playerPh').style.display = 'block';
-  document.getElementById('playerPh').innerHTML = '<p>Chargement du stream...</p>';
-}
-
-document.getElementById('embedBtn').addEventListener('click', function() {
-  const url = document.getElementById('embedInput').value.trim();
-  if (!url) return;
-  const f = document.getElementById('playerFrame');
-  f.src = url;
-  f.style.display = 'block';
-  document.getElementById('playerPh').style.display = 'none';
-});
-
-document.getElementById('modalBg').addEventListener('click', function(e) {
-  if (e.target === this) closePlayer();
-});
-
-function sidebarHTML() {
-  return `<div class="side-ad"><div class="sh">PUBLICITÉ</div><div class="sb"><div class="si">📺<br>Streaming HD</div><strong>Filmix Premium</strong><p>Stream sans pub</p><a href="#">Essayer</a></div></div>
-  <div class="side-ad"><div class="sh">SPONSOR</div><div class="sb"><div class="si">🔒<br>VPN</div><strong>Débloque tout</strong><p>Streaming rapide</p><a href="#">Offre</a></div></div>`;
-}
-
-function footerAdsHTML() {
-  return `<div class="fad"><span>📺 4K Streaming</span><a href="#">Regarder</a></div>
-  <div class="fad"><span>⚡ Nouveaux films</span><a href="#">Voir</a></div>`;
-}
-
-function initHome() {
-  fillGrid('home-movies', DATA.movies.slice(0, 6));
-  fillGrid('home-series', DATA.series.slice(0, 6));
-  document.getElementById('sidebar-home').innerHTML = sidebarHTML();
-  document.getElementById('footer-home').innerHTML = footerAdsHTML();
-}
-
-function initMovies() {
-  fillGrid('movies-grid', DATA.movies);
-  document.getElementById('sidebar-movies').innerHTML = sidebarHTML();
-  document.getElementById('footer-movies').innerHTML = footerAdsHTML();
-}
-
-function initSeries() {
-  fillGrid('series-grid', DATA.series);
-  document.getElementById('sidebar-series').innerHTML = sidebarHTML();
-  document.getElementById('footer-series').innerHTML = footerAdsHTML();
-}
-
-function initTop() {
-  const top = ALL.slice().sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating)).slice(0, 16);
-  fillGrid('top-grid', top);
-  document.getElementById('sidebar-top').innerHTML = sidebarHTML();
-  document.getElementById('footer-top').innerHTML = footerAdsHTML();
-}
-
-const pageInits = { movies: initMovies, series: initSeries, top: initTop };
-const initialized = {};
-
-window.showPage = function(name) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-  document.getElementById('page-' + name).classList.add('active');
-  const navEl = document.getElementById('nav-' + name);
-  if (navEl) navEl.classList.add('active');
-  window.scrollTo(0, 0);
-  if (!initialized[name] && pageInits[name]) {
-    pageInits[name]();
-    initialized[name] = true;
-  }
-};
-
-window.doSearch = function() {
-  const q = document.getElementById('searchInput').value.trim().toLowerCase();
-  if (!q) return;
-  const results = ALL.filter(m => m.title.toLowerCase().includes(q));
-  document.getElementById('search-title').textContent = `Résultats pour "${q}" (${results.length})`;
-  fillGrid('search-grid', results);
-  document.getElementById('sidebar-search').innerHTML = sidebarHTML();
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-search').classList.add('active');
-};
-
-initHome();
-</script>
+  <script type="module" src="/src/main.js"></script>
 </body>
+
 </html>
