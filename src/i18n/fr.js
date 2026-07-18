@@ -19,7 +19,14 @@ export default {
   },
   home: {
     continueWatching: 'Reprendre la Lecture',
-    recentlyViewed: 'Récemment Visionnés'
+    recentlyViewed: 'Récemment Visionnés',
+    trendingNow: 'Tendances &#x1F525;',
+    latestReleases: 'Dernières Sorties',
+    popularMovies: 'Films Populaires',
+    popularTv: 'Séries Populaires',
+    genres: 'Genres',
+    recommendations: 'Recommandations',
+    news: 'Au Cinéma'
   },
   hero: {
     play: 'REGARDER',
@@ -92,7 +99,11 @@ export default {
     crime: 'Crimes & Séries Noires'
   },
   share: {
-    text: 'Regarde "{title}" gratuitement sur DRAMA MIX !'
+    text: 'Regarder "{title}" gratuitement sur DRAMA MIX !'
+  },
+  footer: {
+    desc: 'Streaming gratuit de films et séries du monde entier.',
+    rights: 'Tous droits réservés.'
   },
   doc: {
     title: 'DRAMA MIX — Streaming Gratuit de Films & Séries du Monde Entier',

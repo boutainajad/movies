@@ -19,7 +19,14 @@ export default {
   },
   home: {
     continueWatching: 'متابعة المشاهدة',
-    recentlyViewed: 'تم المشاهدة مؤخراً'
+    recentlyViewed: 'تم مشاهدتها مؤخراً',
+    trendingNow: 'الأكثر رواجاً &#x1F525;',
+    latestReleases: 'أحدث الإصدارات',
+    popularMovies: 'الأفلام الشائعة',
+    popularTv: 'المسلسلات الشائعة',
+    genres: 'التصنيفات',
+    recommendations: 'التوصيات',
+    news: 'في السينما'
   },
   hero: {
     play: 'مشاهدة',
@@ -93,6 +100,10 @@ export default {
   },
   share: {
     text: 'شاهد "{title}" مجاناً على DRAMA MIX!'
+  },
+  footer: {
+    desc: 'بث مجاني للأفلام والمسلسلات من جميع أنحاء العالم.',
+    rights: 'جميع الحقوق محفوظة.'
   },
   doc: {
     title: 'DRAMA MIX — بث مجاني للأفلام والمسلسلات من جميع أنحاء العالم',

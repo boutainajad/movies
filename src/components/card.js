@@ -23,7 +23,7 @@ export function attachCard(app) {
                         <div class="row-card" data-id="${item.id}" data-type="${type}" data-title="${escapedT}">
                             <img src="${poster}" alt="${escapedT}" loading="lazy">
                             <div class="row-card-overlay">
-                                <div class="row-card-rating"><i class="fa-solid fa-star"></i> ${item.vote_average.toFixed(1)}</div>
+                                <div class="row-card-rating"><i class="fa-solid fa-star"></i> ${item.vote_average != null ? item.vote_average.toFixed(1) : t('common.na')}</div>
                                 <div class="row-card-quick">
                                     <span>${escapedYear}</span>
                                     <span>${t(type === 'movie' ? 'common.movie' : 'common.series')}</span>

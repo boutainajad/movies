@@ -19,7 +19,14 @@ export default {
   },
   home: {
     continueWatching: 'Continue Watching',
-    recentlyViewed: 'Recently Viewed'
+    recentlyViewed: 'Recently Viewed',
+    trendingNow: 'Trending Now &#x1F525;',
+    latestReleases: 'Latest Releases',
+    popularMovies: 'Popular Movies',
+    popularTv: 'Popular TV Shows',
+    genres: 'Genres',
+    recommendations: 'Recommendations',
+    news: 'In Theaters'
   },
   hero: {
     play: 'WATCH',
@@ -93,6 +100,10 @@ export default {
   },
   share: {
     text: 'Watch "{title}" for free on DRAMA MIX!'
+  },
+  footer: {
+    desc: 'Free streaming of movies & TV series from around the world.',
+    rights: 'All rights reserved.'
   },
   doc: {
     title: 'DRAMA MIX — Free Streaming of Movies & Series from Around the World',

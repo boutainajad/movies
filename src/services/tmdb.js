@@ -72,4 +72,12 @@ export default class TMDB {
     static async getSeason(id, seasonNumber, signal = null) {
         return this.fetch(`/tv/${id}/season/${seasonNumber}`, {}, signal, CACHE_TTL.SEASON);
     }
+
+    static async getPopular(type = 'movie', page = 1, signal = null) {
+        return this.fetch(`/${type}/popular`, { page }, signal);
+    }
+
+    static async getNowPlaying(page = 1, signal = null) {
+        return this.fetch('/movie/now_playing', { page }, signal);
+    }
 }
