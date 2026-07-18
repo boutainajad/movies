@@ -5,6 +5,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- Preconnect hints -->
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://image.tmdb.org">
+  <link rel="preconnect" href="https://pl29413333.effectivecpmnetwork.com">
+  <link rel="preconnect" href="https://pl29405088.profitablecpmratenetwork.com">
+
   
   <!-- AD SCRIPTS START (RESTORED TO HEAD) -->
   <script src="https://pl29405088.profitablecpmratenetwork.com/45/35/95/453595bfefbeac6e9ef0eb61048d7ff5.js"></script>
@@ -52,6 +60,7 @@
           <a href="#" class="nav-item" data-page="movies"><span><i class="fa-solid fa-film"></i></span> Films</a>
           <a href="#" class="nav-item" data-page="series"><span><i class="fa-solid fa-tv"></i></span> Séries</a>
           <a href="#" class="nav-item" data-page="watchlist"><span><i class="fa-solid fa-bookmark"></i></span> Watchlist</a>
+          <a href="#" class="nav-item" data-page="favorites"><span><i class="fa-solid fa-heart"></i></span> Favoris</a>
         </div>
       </nav>
     </aside>
@@ -115,22 +124,30 @@
     <!-- Player Modal -->
     <div id="playerModal" class="modal-bg">
       <div class="modal">
-        <button class="modal-close" onclick="closePlayer()"><i class="fa-solid fa-xmark"></i></button>
+        <button class="modal-close"><i class="fa-solid fa-xmark"></i></button>
 
         <div class="modal-body">
           <div class="player-wrapper">
+            <div class="player-loading" id="playerLoading">
+              <div class="spinner"></div>
+              <span class="player-loading-text">Chargement du lecteur...</span>
+            </div>
             <iframe id="playerFrame" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen
               referrerpolicy="origin"></iframe>
+            <button class="player-fullscreen-btn" id="fullscreenBtn" title="Plein écran (F)">
+              <i class="fa-solid fa-expand"></i>
+            </button>
             <div class="source-bar" id="sourceBar"></div>
           </div>
 
           <div class="movie-details">
             <div class="details-main">
-              <h2 id="detailTitle">Chargement...</h2>
+              <h2 id="detailTitle"><span class="modal-skeleton-title skeleton" style="display:inline-block"></span></h2>
               <div class="meta-tags">
                 <span id="detailYear"></span>
                 <span id="detailRating" class="rating-tag"></span>
                 <span id="detailRuntime"></span>
+                <button id="watchlistBtn" class="btn-watchlist"><i class="fa-regular fa-bookmark"></i> Ajouter à la Watchlist</button>
               </div>
               <p id="detailOverview"></p>
               
@@ -138,9 +155,9 @@
               <div class="share-section">
                 <span>Partager avec vos amis :</span>
                 <div class="share-buttons">
-                  <button class="share-btn wa" onclick="shareMovie('whatsapp')">WhatsApp</button>
-                  <button class="share-btn tg" onclick="shareMovie('telegram')">Telegram</button>
-                  <button class="share-btn fb" onclick="shareMovie('facebook')">Facebook</button>
+                  <button class="share-btn wa" data-platform="whatsapp">WhatsApp</button>
+                  <button class="share-btn tg" data-platform="telegram">Telegram</button>
+                  <button class="share-btn fb" data-platform="facebook">Facebook</button>
                 </div>
               </div>
 
@@ -155,6 +172,9 @@
       </div>
     </div>
   </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
 
   <!-- Mobile Bottom Navigation -->
   <nav class="mobile-nav">
