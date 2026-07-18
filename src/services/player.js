@@ -4,6 +4,7 @@ import { addRecentlyViewed, getContinueWatching, getLastSource, setLastSource } 
 import { escapeHtml } from '../utils/helpers.js';
 import { PLAYER_LOADING_TIMEOUT, WATCH_INTERVAL, MAX_CONTINUE_WATCHING } from '../utils/constants.js';
 import { renderCastSkeleton, renderCastHTML, renderRelatedSkeleton, renderRelatedHTML, renderSourceSkeleton, renderSourceBar, renderEpisodesPicker } from '../components/modal.js';
+import { t } from '../i18n/index.js';
 
 let _app;
 let _playerSourceNames = [];
@@ -23,6 +24,10 @@ let _currentWatchSession = null;
 export async function openPlayer(id, type, title, season = 1, episode = 1) {
     try {
     console.log(`FILMIX: Opening ${type} with TMDB ID ${id} | S${season}E${episode}`);
+
+    const detailPage = document.getElementById('movie-detail-page');
+    if (detailPage) detailPage.style.display = 'none';
+
     const suggestionsBox = document.getElementById('searchSuggestions');
     if (suggestionsBox) suggestionsBox.style.display = 'none';
     const modal = document.getElementById('playerModal');
@@ -50,7 +55,7 @@ export async function openPlayer(id, type, title, season = 1, episode = 1) {
     }
 
     const detailTitleEl = document.getElementById('detailTitle');
-    if (detailTitleEl) detailTitleEl.textContent = title + (type === 'tv' ? ` - S${activeSeason} E${activeEpisode}` : '');
+    if (detailTitleEl) detailTitleEl.textContent = title + (type === 'tv' ? ` - ${t('player.season')} ${activeSeason} ${t('player.ep')} ${activeEpisode}` : '');
 
     const detailYear = document.getElementById('detailYear');
     const detailRating = document.getElementById('detailRating');
@@ -95,7 +100,7 @@ export async function openPlayer(id, type, title, season = 1, episode = 1) {
     const defaultUrl = sourceFn ? sourceFn(id, imdbId, type, activeSeason, activeEpisode) : '';
     setPlayerSource(defaultUrl, defaultSource);
 
-    document.title = `${title} — Regarder sur DRAMA MIX`;
+    document.title = t('doc.player', { title });
     _currentShareData = { title, url: window.location.href, id };
 
     if (details) {
@@ -113,23 +118,23 @@ export async function openPlayer(id, type, title, season = 1, episode = 1) {
         addRecentlyViewed(recentlyViewedItem);
 
         const detailOverviewEl = document.getElementById('detailOverview');
-        if (detailOverviewEl) detailOverviewEl.textContent = details.overview || 'Pas de description disponible.';
+        if (detailOverviewEl) detailOverviewEl.textContent = details.overview || t('player.noDescription');
         const detailYearEl = document.getElementById('detailYear');
         if (detailYearEl) detailYearEl.textContent = (details.release_date || details.first_air_date || '').split('-')[0];
         const detailRatingEl = document.getElementById('detailRating');
-        if (detailRatingEl) detailRatingEl.innerHTML = '<i class="fa-solid fa-star"></i> ' + (details.vote_average != null ? details.vote_average.toFixed(1) : 'N/A');
+        if (detailRatingEl) detailRatingEl.innerHTML = '<i class="fa-solid fa-star"></i> ' + (details.vote_average != null ? details.vote_average.toFixed(1) : t('player.na'));
         const detailRuntimeEl = document.getElementById('detailRuntime');
-        if (detailRuntimeEl) detailRuntimeEl.textContent = (details.runtime || details.episode_run_time?.[0] || '?') + ' min';
+        if (detailRuntimeEl) detailRuntimeEl.textContent = (details.runtime || details.episode_run_time?.[0] || '?') + ` ${t('player.minutes')}`;
 
         const watchlistBtn = document.getElementById('watchlistBtn');
         if (watchlistBtn) {
             const inWatchlist = _app.isInWatchlist(id);
             if (inWatchlist) {
                 watchlistBtn.classList.add('in-watchlist');
-                watchlistBtn.innerHTML = `<i class="fa-solid fa-bookmark"></i> Retirer de la Watchlist`;
+                watchlistBtn.innerHTML = `<i class="fa-solid fa-bookmark"></i> ${t('player.removeWatchlist')}`;
             } else {
                 watchlistBtn.classList.remove('in-watchlist');
-                watchlistBtn.innerHTML = `<i class="fa-regular fa-bookmark"></i> Ajouter à la Watchlist`;
+                watchlistBtn.innerHTML = `<i class="fa-regular fa-bookmark"></i> ${t('player.addWatchlist')}`;
             }
 
             watchlistBtn.onclick = () => {
@@ -145,10 +150,10 @@ export async function openPlayer(id, type, title, season = 1, episode = 1) {
                 const wasAdded = _app.toggleWatchlist(item);
                 if (wasAdded) {
                     watchlistBtn.classList.add('in-watchlist');
-                    watchlistBtn.innerHTML = `<i class="fa-solid fa-bookmark"></i> Retirer de la Watchlist`;
+                    watchlistBtn.innerHTML = `<i class="fa-solid fa-bookmark"></i> ${t('player.removeWatchlist')}`;
                 } else {
                     watchlistBtn.classList.remove('in-watchlist');
-                    watchlistBtn.innerHTML = `<i class="fa-regular fa-bookmark"></i> Ajouter à la Watchlist`;
+                    watchlistBtn.innerHTML = `<i class="fa-regular fa-bookmark"></i> ${t('player.addWatchlist')}`;
                 }
             };
         }
@@ -234,7 +239,7 @@ export function closePlayer() {
     if (playerModal) playerModal.classList.remove('open');
     const playerFrame = document.getElementById('playerFrame');
     if (playerFrame) playerFrame.src = '';
-    document.title = 'DRAMA MIX — L\'expérience Streaming Ultime';
+    document.title = t('doc.closed');
 
     if (_watchInterval) {
         clearInterval(_watchInterval);
@@ -281,7 +286,7 @@ function navigateEpisode(dir) {
 
 function shareMovie(platform) {
     const data = _currentShareData || { title: 'DRAMA MIX', url: window.location.href };
-    const text = encodeURIComponent(`Regarde "${data.title}" gratuitement sur DRAMA MIX ! 🎬\n\n`);
+    const text = encodeURIComponent(t('share.text', { title: data.title }) + '\n\n');
     const url = encodeURIComponent(data.url);
 
     const links = {
@@ -316,7 +321,7 @@ async function loadEpisodes(id, seasonNumber, title) {
             const epName = escapeHtml(ep.name || '');
             return `
                 <div class="episode-item" data-id="${id}" data-type="tv" data-title="${escapeHtml(title)}" data-season="${seasonNumber}" data-episode="${ep.episode_number}">
-                    <span class="ep-num">EP ${ep.episode_number}</span>
+                    <span class="ep-num">${t('player.ep')} ${ep.episode_number}</span>
                     <span class="nav-text">${epName}</span>
                 </div>
             `;
@@ -327,7 +332,7 @@ async function loadEpisodes(id, seasonNumber, title) {
         const nextBtn = document.getElementById('nextEpBtn');
         const curEp = _playerEpisode;
         const curIdx = data.episodes.findIndex(ep => ep.episode_number === curEp);
-        if (navLabel) navLabel.textContent = `EP ${curEp} / ${data.episodes.length}`;
+        if (navLabel) navLabel.textContent = `${t('player.ep')} ${curEp} / ${data.episodes.length}`;
         if (prevBtn) prevBtn.disabled = curIdx <= 0;
         if (nextBtn) nextBtn.disabled = curIdx >= data.episodes.length - 1;
     }
@@ -360,7 +365,9 @@ function setupDelegatedListeners() {
         if (episodeItem) {
             e.preventDefault();
             const { id, type, title, season, episode } = episodeItem.dataset;
-            openPlayer(id, type, title, parseInt(season), parseInt(episode));
+            if (_app && _app.showMovieDetail) {
+                _app.showMovieDetail(id, type, title, parseInt(season), parseInt(episode));
+            }
             return;
         }
 
@@ -368,7 +375,9 @@ function setupDelegatedListeners() {
         if (relatedCard) {
             e.preventDefault();
             const { id, type, title } = relatedCard.dataset;
-            openPlayer(id, type, title);
+            if (_app && _app.showMovieDetail) {
+                _app.showMovieDetail(id, type, title);
+            }
             return;
         }
 
@@ -376,7 +385,9 @@ function setupDelegatedListeners() {
         if (rowCard) {
             e.preventDefault();
             const { id, type, title } = rowCard.dataset;
-            openPlayer(id, type, title);
+            if (_app && _app.showMovieDetail) {
+                _app.showMovieDetail(id, type, title);
+            }
             return;
         }
 
@@ -384,7 +395,9 @@ function setupDelegatedListeners() {
         if (continueCard) {
             e.preventDefault();
             const { id, type, title, season, episode } = continueCard.dataset;
-            openPlayer(id, type, title, parseInt(season) || 1, parseInt(episode) || 1);
+            if (_app && _app.showMovieDetail) {
+                _app.showMovieDetail(id, type, title, parseInt(season) || 1, parseInt(episode) || 1);
+            }
             return;
         }
 

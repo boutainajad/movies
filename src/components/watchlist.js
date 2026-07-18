@@ -1,4 +1,5 @@
 import { saveFavorites, saveWatchlist } from '../services/storage.js';
+import { t } from '../i18n/index.js';
 
 export function attachWatchlist(app) {
     app.renderWatchlist = function () {
@@ -8,7 +9,7 @@ export function attachWatchlist(app) {
         if (this._mobileGenres) this._mobileGenres.style.display = 'none';
 
         if (this.state.watchlist.length === 0) {
-            if (this._grid) this._grid.innerHTML = '<p class="empty-msg">Votre watchlist est vide.</p>';
+            if (this._grid) this._grid.innerHTML = `<p class="empty-msg">${t('empty.watchlist')}</p>`;
         } else {
             this.renderGrid(this.state.watchlist);
         }
@@ -26,7 +27,7 @@ export function attachWatchlist(app) {
         if (sectionsContainer) sectionsContainer.innerHTML = '';
 
         if (this.state.favorites.length === 0) {
-            if (this._grid) this._grid.innerHTML = '<p class="empty-msg favorites">Vous n\'avez aucun favori.</p>';
+            if (this._grid) this._grid.innerHTML = `<p class="empty-msg favorites">${t('empty.favorites')}</p>`;
         } else {
             this.renderGrid(this.state.favorites);
         }
@@ -50,18 +51,18 @@ export function attachWatchlist(app) {
 
         if (index > -1) {
             this.state.favorites.splice(index, 1);
-            this.showToast('Retiré des favoris !', 'success');
+            this.showToast(t('toast.removedFavorites'), 'success');
         } else {
             this.state.favorites.unshift(item);
             added = true;
-            this.showToast('Ajouté aux favoris !', 'success');
+            this.showToast(t('toast.addedFavorites'), 'success');
         }
 
         saveFavorites(this.state.favorites);
 
         if (btnEl) {
             btnEl.classList.toggle('active', added);
-            btnEl.title = added ? 'Retirer des favoris' : 'Ajouter aux favoris';
+            btnEl.title = added ? t('player.removeFav') : t('player.addFav');
             const icon = btnEl.querySelector('i');
             if (icon) icon.className = `fa-${added ? 'solid' : 'regular'} fa-heart`;
         }
@@ -73,7 +74,7 @@ export function attachWatchlist(app) {
             if (btnKey !== targetKey) return;
 
             btn.classList.toggle('active', added);
-            btn.title = added ? 'Retirer des favoris' : 'Ajouter aux favoris';
+            btn.title = added ? t('player.removeFav') : t('player.addFav');
             const icon = btn.querySelector('i');
             if (icon) icon.className = `fa-${added ? 'solid' : 'regular'} fa-heart`;
         });
@@ -96,12 +97,12 @@ export function attachWatchlist(app) {
 
         if (index > -1) {
             this.state.watchlist.splice(index, 1);
-            this.showToast('Retiré de la watchlist !', 'success');
+            this.showToast(t('toast.removedWatchlist'), 'success');
         } else {
             if (!this.isInWatchlist(item.id)) {
                 this.state.watchlist.push(item);
                 added = true;
-                this.showToast('Ajouté à la watchlist !', 'success');
+                this.showToast(t('toast.addedWatchlist'), 'success');
             }
         }
 

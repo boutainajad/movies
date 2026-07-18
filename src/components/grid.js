@@ -1,6 +1,6 @@
 import CONFIG from '../config.js';
 import { escapeHtml, safeTitle, getPosterUrl, getYear } from '../utils/helpers.js';
-import { openPlayer } from '../services/player.js';
+import { t } from '../i18n/index.js';
 
 export function attachGrid(app) {
     app.renderGrid = function (items) {
@@ -14,10 +14,10 @@ export function attachGrid(app) {
             const poster = getPosterUrl(item.poster_path, CONFIG.IMG_URL);
             const year = getYear(item);
             const escapedYear = escapeHtml(year);
-            const rating = item.vote_average ? item.vote_average.toFixed(1) : 'N/A';
+            const rating = item.vote_average ? item.vote_average.toFixed(1) : t('common.na');
 
             const type = item.type || (item.name || item.media_type === 'tv' || item.first_air_date ? 'tv' : 'movie');
-            const typeLabel = type === 'movie' ? 'Film' : 'Série';
+            const typeLabel = t(type === 'movie' ? 'common.movie' : 'common.series');
 
             const isFav = this.isFavorite(item.id, type);
             const favItem = {
@@ -33,7 +33,7 @@ export function attachGrid(app) {
 
             const card = document.createElement('div');
             card.className = 'movie-card';
-            card.onclick = () => openPlayer(item.id, type, safeTitle(title));
+            card.onclick = () => window.app.showMovieDetail(item.id, type, safeTitle(title));
             card.innerHTML = `
                 <div class="card-poster">
                     <img src="${poster}" alt="${escapedTitle}" loading="lazy" decoding="async">
@@ -46,7 +46,7 @@ export function attachGrid(app) {
                         </div>
                     </div>
                     <div class="card-play"><div class="play-icon"><i class="fa-solid fa-play"></i></div></div>
-                    <button class="btn-fav ${isFav ? 'active' : ''}" title="${isFav ? 'Retirer des favoris' : 'Ajouter aux favoris'}">
+                    <button class="btn-fav ${isFav ? 'active' : ''}" title="${isFav ? t('player.removeFav') : t('player.addFav')}">
                         <i class="fa-${isFav ? 'solid' : 'regular'} fa-heart"></i>
                     </button>
                 </div>

@@ -1,5 +1,6 @@
 import CONFIG from '../config.js';
 import { CACHE_TTL } from '../utils/constants.js';
+import { getTmdbLang } from '../i18n/index.js';
 
 export default class TMDB {
     static #cache = new Map();
@@ -28,7 +29,7 @@ export default class TMDB {
 
         const queryParams = new URLSearchParams({
             api_key: CONFIG.TMDB_KEY,
-            language: 'fr-FR',
+            language: getTmdbLang(),
             ...params
         });
 
@@ -70,5 +71,13 @@ export default class TMDB {
 
     static async getSeason(id, seasonNumber, signal = null) {
         return this.fetch(`/tv/${id}/season/${seasonNumber}`, {}, signal, CACHE_TTL.SEASON);
+    }
+
+    static async getPopular(type = 'movie', page = 1, signal = null) {
+        return this.fetch(`/${type}/popular`, { page }, signal);
+    }
+
+    static async getNowPlaying(page = 1, signal = null) {
+        return this.fetch('/movie/now_playing', { page }, signal);
     }
 }

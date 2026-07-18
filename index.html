@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 
 <head>
   <meta charset="UTF-8" />
@@ -19,7 +19,7 @@
   <!-- AD SCRIPTS END -->
    <script src="https://pl29413333.effectivecpmnetwork.com/f0/cc/b1/f0ccb1880f547d9734abf0d672b3d44c.js"></script>
 
-  <title>DRAMA MIX — Streaming Gratuit de Films & Séries du Monde Entier</title>
+  <title data-i18n="doc.title">DRAMA MIX — Free Streaming of Movies & Series from Around the World</title>
   <meta name="description"
     content="Regardez vos films et séries préférés en streaming HD gratuit. Action, Comédie, Thriller, Romance, Science-Fiction — Le meilleur du cinéma mondial sur DRAMA MIX." />
   <meta name="keywords" content="streaming, movies, series, films, action, comedie, thriller, drama mix, gratuit, hd, monde" />
@@ -55,14 +55,22 @@
 
       <nav class="side-nav">
         <div class="nav-group">
-          <span class="group-label">Menu</span>
-          <a href="#" class="nav-item active" data-page="home"><span><i class="fa-solid fa-house"></i></span> Accueil</a>
-          <a href="#" class="nav-item" data-page="movies"><span><i class="fa-solid fa-film"></i></span> Films</a>
-          <a href="#" class="nav-item" data-page="series"><span><i class="fa-solid fa-tv"></i></span> Séries</a>
-          <a href="#" class="nav-item" data-page="watchlist"><span><i class="fa-solid fa-bookmark"></i></span> Watchlist</a>
-          <a href="#" class="nav-item" data-page="favorites"><span><i class="fa-solid fa-heart"></i></span> Favoris</a>
+          <span class="group-label" data-i18n="nav.menu">Menu</span>
+          <a href="#" class="nav-item active" data-page="home"><span><i class="fa-solid fa-house"></i></span> <span class="nav-text" data-i18n="nav.home">Home</span></a>
+          <a href="#" class="nav-item" data-page="movies"><span><i class="fa-solid fa-film"></i></span> <span class="nav-text" data-i18n="nav.movies">Movies</span></a>
+          <a href="#" class="nav-item" data-page="series"><span><i class="fa-solid fa-tv"></i></span> <span class="nav-text" data-i18n="nav.series">TV Shows</span></a>
+          <a href="#" class="nav-item" data-page="watchlist"><span><i class="fa-solid fa-bookmark"></i></span> <span class="nav-text" data-i18n="nav.watchlist">Watchlist</span></a>
+          <a href="#" class="nav-item" data-page="favorites"><span><i class="fa-solid fa-heart"></i></span> <span class="nav-text" data-i18n="nav.favorites">Favorites</span></a>
         </div>
       </nav>
+
+      <div class="lang-selector">
+        <select id="langSelect">
+          <option value="en" data-i18n="lang.en">English</option>
+          <option value="fr" data-i18n="lang.fr">Français</option>
+          <option value="ar" data-i18n="lang.ar">العربية</option>
+        </select>
+      </div>
     </aside>
 
     <!-- Main Content -->
@@ -71,16 +79,19 @@
         <div class="mobile-logo" onclick="window.location.reload()">DRAMA MIX</div>
         <div class="search-container">
           <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
-          <input type="text" id="searchInput" placeholder="Rechercher un film, une série..." autocomplete="off">
+          <input type="text" id="searchInput" data-i18n-placeholder="search.placeholder" placeholder="Search a movie, series..." autocomplete="off">
           <div id="searchSuggestions" class="search-suggestions"></div>
         </div>
         <div class="user-actions">
-          <button class="btn-icon" title="Notifications"><i class="fa-solid fa-bell"></i></button>
+          <button class="btn-icon" data-i18n-title="nav.notifications" title="Notifications"><i class="fa-solid fa-bell"></i></button>
           <div class="user-profile">
             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="User Avatar">
           </div>
         </div>
       </header>
+
+      <!-- Announcement Marquee -->
+      <div id="announcement-marquee"></div>
 
       <!-- Pages -->
       <div id="page-content" class="content-area">
@@ -96,12 +107,23 @@
           <div id="genre-list" class="genre-list top-genres"></div>
 
           <div class="section-header">
-            <h2 id="grid-title">Films Populaires du Monde</h2>
+            <h2 id="grid-title"></h2>
             <div class="grid-options">
               <select id="sortSelect">
-                <option value="popularity.desc">Populaire</option>
-                <option value="vote_average.desc">Mieux notés</option>
-                <option value="primary_release_date.desc">Nouveautés</option>
+                <option value="popularity.desc" data-i18n="sort.popularity">Popular</option>
+                <option value="vote_average.desc" data-i18n="sort.topRated">Top Rated</option>
+                <option value="primary_release_date.desc" data-i18n="sort.releaseDate">New Releases</option>
+              </select>
+              <select id="yearSelect">
+                <option value="" data-i18n="filter.allYears">All Years</option>
+              </select>
+              <select id="ratingSelect">
+                <option value="" data-i18n="filter.allRatings">All Ratings</option>
+                <option value="7">7+</option>
+                <option value="6">6+</option>
+                <option value="5">5+</option>
+                <option value="4">4+</option>
+                <option value="3">3+</option>
               </select>
             </div>
           </div>
@@ -117,7 +139,10 @@
           <div id="load-more-trigger" class="load-more-trigger">
             <div class="spinner"></div>
           </div>
+          <div id="pagination" class="pagination"></div>
         </section>
+        <!-- Movie Detail Page (outside .section) -->
+        <div id="movie-detail-page" class="detail-page" style="display:none"></div>
       </div>
     </main>
 
@@ -130,11 +155,11 @@
           <div class="player-wrapper">
             <div class="player-loading" id="playerLoading">
               <div class="spinner"></div>
-              <span class="player-loading-text">Chargement du lecteur...</span>
+              <span class="player-loading-text" data-i18n="player.loading">Loading player...</span>
             </div>
             <iframe id="playerFrame" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen
               referrerpolicy="origin"></iframe>
-            <button class="player-fullscreen-btn" id="fullscreenBtn" title="Plein écran (F)">
+            <button class="player-fullscreen-btn" id="fullscreenBtn" data-i18n-title="player.fullscreen" title="Fullscreen (F)">
               <i class="fa-solid fa-expand"></i>
             </button>
             <div class="source-bar" id="sourceBar"></div>
@@ -147,13 +172,13 @@
                 <span id="detailYear"></span>
                 <span id="detailRating" class="rating-tag"></span>
                 <span id="detailRuntime"></span>
-                <button id="watchlistBtn" class="btn-watchlist"><i class="fa-regular fa-bookmark"></i> Ajouter à la Watchlist</button>
+                <button id="watchlistBtn" class="btn-watchlist"><i class="fa-regular fa-bookmark"></i> Add to Watchlist</button>
               </div>
               <p id="detailOverview"></p>
               
               <!-- Share Buttons -->
               <div class="share-section">
-                <span>Partager avec vos amis :</span>
+                <span data-i18n="player.shareLabel">Share with your friends:</span>
                 <div class="share-buttons">
                   <button class="share-btn wa" data-platform="whatsapp">WhatsApp</button>
                   <button class="share-btn tg" data-platform="telegram">Telegram</button>
@@ -164,7 +189,7 @@
               <div class="cast-list" id="detailCast"></div>
             </div>
             <div class="related-section">
-              <h3>Voulez-vous aussi regarder ?</h3>
+              <h3 data-i18n="player.related">Would you also like to watch?</h3>
               <div id="relatedGrid" class="related-grid"></div>
             </div>
           </div>
@@ -180,23 +205,24 @@
   <nav class="mobile-nav">
     <a href="#" class="nav-item active" data-page="home">
       <span class="nav-icon"><i class="fa-solid fa-house"></i></span>
-      <span class="nav-text">Accueil</span>
+      <span class="nav-text" data-i18n="nav.home">Home</span>
     </a>
     <a href="#" class="nav-item" data-page="movies">
       <span class="nav-icon"><i class="fa-solid fa-film"></i></span>
-      <span class="nav-text">Films</span>
+      <span class="nav-text" data-i18n="nav.movies">Movies</span>
     </a>
     <a href="#" class="nav-item" data-page="series">
       <span class="nav-icon"><i class="fa-solid fa-tv"></i></span>
-      <span class="nav-text">Séries</span>
+      <span class="nav-text" data-i18n="nav.series">TV Shows</span>
     </a>
     <a href="#" class="nav-item" data-page="watchlist">
       <span class="nav-icon"><i class="fa-solid fa-bookmark"></i></span>
-      <span class="nav-text">Watchlist</span>
+      <span class="nav-text" data-i18n="nav.watchlist">Watchlist</span>
     </a>
   </nav>
 
   <script type="module" src="/src/main.js"></script>
+  <script type="module" src="/src/react-entry.jsx"></script>
 
 
   
