@@ -17,22 +17,22 @@ export const STORAGE_KEYS = {
 };
 
 export const HOME_GENRES = [
-    { id: null, title: '<i class="fa-solid fa-fire"></i> Tendances du Moment', type: 'movie' },
-    { id: 28, title: '<i class="fa-solid fa-burst"></i> Action & Aventure', type: 'movie' },
-    { id: 10749, title: '<i class="fa-solid fa-heart"></i> Romances & Dramas', type: 'tv' },
-    { id: 53, title: '<i class="fa-solid fa-masks-theater"></i> Thrillers Intenses', type: 'movie' },
-    { id: 35, title: '<i class="fa-solid fa-face-laugh-beam"></i> Comédies Mondiales', type: 'movie' },
-    { id: 878, title: '<i class="fa-solid fa-rocket"></i> Science-Fiction', type: 'movie' },
-    { id: 16, title: '<i class="fa-solid fa-palette"></i> Animation', type: 'movie' },
-    { id: 80, title: '<i class="fa-solid fa-gun"></i> Crimes & Séries Noires', type: 'tv' }
+    { id: null, titleKey: 'genres.trending', icon: 'fa-fire', type: 'movie' },
+    { id: 28, titleKey: 'genres.action', icon: 'fa-burst', type: 'movie' },
+    { id: 10749, titleKey: 'genres.romance', icon: 'fa-heart', type: 'tv' },
+    { id: 53, titleKey: 'genres.thriller', icon: 'fa-masks-theater', type: 'movie' },
+    { id: 35, titleKey: 'genres.comedy', icon: 'fa-face-laugh-beam', type: 'movie' },
+    { id: 878, titleKey: 'genres.sciFi', icon: 'fa-rocket', type: 'movie' },
+    { id: 16, titleKey: 'genres.animation', icon: 'fa-palette', type: 'movie' },
+    { id: 80, titleKey: 'genres.crime', icon: 'fa-gun', type: 'tv' }
 ];
 
 export const PAGE_TITLES = {
-    home: '<i class="fa-solid fa-fire"></i> Tendances Mondiales',
-    movies: '<i class="fa-solid fa-film"></i> Films du Monde Entier',
-    series: '<i class="fa-solid fa-tv"></i> Séries & Dramas Mondiaux',
-    watchlist: '<i class="fa-solid fa-bookmark"></i> Ma Watchlist',
-    favorites: '<i class="fa-solid fa-heart"></i> Mes Favoris'
+    home: { icon: 'fa-fire', key: 'pages.home' },
+    movies: { icon: 'fa-film', key: 'pages.movies' },
+    series: { icon: 'fa-tv', key: 'pages.series' },
+    watchlist: { icon: 'fa-bookmark', key: 'pages.watchlist' },
+    favorites: { icon: 'fa-heart', key: 'pages.favorites' }
 };
 
 export const MAX_CONTINUE_WATCHING = 10;

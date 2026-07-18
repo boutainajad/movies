@@ -3,6 +3,7 @@ import TMDB from '../services/tmdb.js';
 import { escapeHtml, waitForImage } from '../utils/helpers.js';
 import { HERO_ROTATION_INTERVAL } from '../utils/constants.js';
 import { openPlayer } from '../services/player.js';
+import { t } from '../i18n/index.js';
 
 export function attachHero(app) {
     app.stopHeroRotation = function () {
@@ -91,10 +92,10 @@ export function attachHero(app) {
                     <div class="hero-meta"></div>
                     <div class="hero-actions">
                         <button class="btn-play" id="heroPlayBtn">
-                            <span><i class="fa-solid fa-play"></i></span> REGARDER
+                            <span><i class="fa-solid fa-play"></i></span> ${t('hero.play')}
                         </button>
                         <button class="btn-info" id="heroInfoBtn">
-                            <span><i class="fa-solid fa-circle-info"></i></span> PLUS D'INFOS
+                            <span><i class="fa-solid fa-circle-info"></i></span> ${t('hero.info')}
                         </button>
                     </div>
                 </div>
@@ -176,7 +177,7 @@ export function attachHero(app) {
             const heroMetaEl = hero.querySelector('.hero-meta');
             if (heroMetaEl) {
                 heroMetaEl.innerHTML = `
-                    <span class="hero-rating"><i class="fa-solid fa-star"></i> ${item.vote_average != null ? item.vote_average.toFixed(1) : 'N/A'}</span>
+                    <span class="hero-rating"><i class="fa-solid fa-star"></i> ${item.vote_average != null ? item.vote_average.toFixed(1) : t('common.na')}</span>
                     ${year ? `<span>${year}</span>` : ''}
                 `;
             }

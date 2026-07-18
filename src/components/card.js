@@ -1,6 +1,7 @@
 import CONFIG from '../config.js';
 import { escapeHtml, getPosterUrl, getYear } from '../utils/helpers.js';
 import { getContinueWatching, getRecentlyViewed } from '../services/storage.js';
+import { t } from '../i18n/index.js';
 
 export function attachCard(app) {
     app.renderRow = function (title, items, container) {
@@ -25,11 +26,11 @@ export function attachCard(app) {
                                 <div class="row-card-rating"><i class="fa-solid fa-star"></i> ${item.vote_average.toFixed(1)}</div>
                                 <div class="row-card-quick">
                                     <span>${escapedYear}</span>
-                                    <span>${type === 'movie' ? 'Film' : 'Série'}</span>
+                                    <span>${t(type === 'movie' ? 'common.movie' : 'common.series')}</span>
                                 </div>
                                 <div class="row-card-play"><i class="fa-solid fa-play"></i></div>
                             </div>
-                            <button class="btn-fav ${isFav ? 'active' : ''}" title="${isFav ? 'Retirer des favoris' : 'Ajouter aux favoris'}" data-fav-id="${escapeHtml(String(item.id))}" data-fav-type="${type}" data-fav-title="${escapedT}" data-fav-name="${escapeHtml(item.name || '')}" data-fav-poster="${escapeHtml(item.poster_path || '')}" data-fav-rating="${item.vote_average || ''}" data-fav-release="${escapeHtml(item.release_date || '')}" data-fav-air="${escapeHtml(item.first_air_date || '')}">
+                            <button class="btn-fav ${isFav ? 'active' : ''}" title="${isFav ? t('player.removeFav') : t('player.addFav')}" data-fav-id="${escapeHtml(String(item.id))}" data-fav-type="${type}" data-fav-title="${escapedT}" data-fav-name="${escapeHtml(item.name || '')}" data-fav-poster="${escapeHtml(item.poster_path || '')}" data-fav-rating="${item.vote_average || ''}" data-fav-release="${escapeHtml(item.release_date || '')}" data-fav-air="${escapeHtml(item.first_air_date || '')}">
                                 <i class="fa-${isFav ? 'solid' : 'regular'} fa-heart"></i>
                             </button>
                         </div>
@@ -56,14 +57,14 @@ export function attachCard(app) {
         }
 
         row.innerHTML = `
-            <h3 class="row-title"><i class="fa-solid fa-clock-rotate-left"></i> Reprendre la Lecture</h3>
+            <h3 class="row-title"><i class="fa-solid fa-clock-rotate-left"></i> ${t('home.continueWatching')}</h3>
             <div class="movie-row">
                 ${items.map(item => {
                     const title = item.title || '';
                     const escapedTitle = escapeHtml(title);
                     const poster = getPosterUrl(item.poster_path, CONFIG.IMG_URL);
                     const type = item.type;
-                    const epInfo = type === 'tv' ? `S${item.season} EP ${item.episode}` : 'Film';
+                    const epInfo = type === 'tv' ? `${t('player.season')} ${item.season} ${t('player.ep')} ${item.episode}` : t('common.movie');
                     const progressPercent = item.duration ? Math.min(100, Math.round((item.playbackTime / item.duration) * 100)) : 0;
                     const year = getYear(item);
                     const escapedYear = escapeHtml(year);
@@ -75,7 +76,7 @@ export function attachCard(app) {
                                 <div class="row-card-rating">${epInfo}</div>
                                 <div class="row-card-quick">
                                     <span>${escapedYear}</span>
-                                    <span>${type === 'movie' ? 'Film' : 'Série'}</span>
+                                    <span>${t(type === 'movie' ? 'common.movie' : 'common.series')}</span>
                                 </div>
                                 <div class="row-card-play"><i class="fa-solid fa-play"></i></div>
                             </div>
@@ -118,14 +119,14 @@ export function attachCard(app) {
         }
 
         row.innerHTML = `
-            <h3 class="row-title"><i class="fa-solid fa-clock"></i> Récemment Visionnés</h3>
+            <h3 class="row-title"><i class="fa-solid fa-clock"></i> ${t('home.recentlyViewed')}</h3>
             <div class="movie-row">
                 ${items.map(item => {
                     const title = item.title || item.name;
                     const escapedTitle = escapeHtml(title);
                     const poster = getPosterUrl(item.poster_path, CONFIG.IMG_URL);
                     let type = item.type || (item.name || item.first_air_date ? 'tv' : 'movie');
-                    const rating = item.vote_average ? item.vote_average.toFixed(1) : 'N/A';
+                    const rating = item.vote_average ? item.vote_average.toFixed(1) : t('common.na');
                     const year = getYear(item);
                     const escapedYear = escapeHtml(year);
                     return `
@@ -135,7 +136,7 @@ export function attachCard(app) {
                                 <div class="row-card-rating"><i class="fa-solid fa-star"></i> ${rating}</div>
                                 <div class="row-card-quick">
                                     <span>${escapedYear}</span>
-                                    <span>${type === 'movie' ? 'Film' : 'Série'}</span>
+                                    <span>${t(type === 'movie' ? 'common.movie' : 'common.series')}</span>
                                 </div>
                                 <div class="row-card-play"><i class="fa-solid fa-play"></i></div>
                             </div>

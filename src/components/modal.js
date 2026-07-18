@@ -1,6 +1,7 @@
 import CONFIG from '../config.js';
 import { escapeHtml, getPosterUrl } from '../utils/helpers.js';
 import { RELATED_COUNT } from '../utils/constants.js';
+import { t } from '../i18n/index.js';
 
 export function renderCastSkeleton() {
     return `
@@ -71,7 +72,7 @@ export function renderSourceBar(sourceNames, defaultSourceIndex, id, imdbId, typ
         const escapedUrl = escapeHtml(url);
         const escapedName = escapeHtml(name);
         return `<button class="source-btn ${index === defaultSourceIndex ? 'active' : ''}" data-source-url="${escapedUrl}" data-source-name="${escapedName}">${escapedName}</button>`;
-    }).join('') + `<button class="source-btn source-btn-newtab" style="background:#222" data-newtab-url="${escapeHtml(newTabUrl)}"><i class="fa-solid fa-globe"></i> New Tab</button>`;
+    }).join('') + `<button class="source-btn source-btn-newtab" style="background:#222" data-newtab-url="${escapeHtml(newTabUrl)}"><i class="fa-solid fa-globe"></i> ${t('player.newTab')}</button>`;
 }
 
 export function renderEpisodesSkeleton() {
@@ -101,9 +102,9 @@ export function renderEpisodesPicker(id, seasons, activeSeason, title) {
                 ${renderEpisodesSkeleton()}
             </div>
             <div class="episode-nav" id="episodeNav">
-                <button class="episode-nav-btn" id="prevEpBtn" data-episode-dir="-1"><i class="fa-solid fa-chevron-left"></i> Précédent</button>
-                <span class="episode-nav-label" id="episodeNavLabel">EP ?</span>
-                <button class="episode-nav-btn" id="nextEpBtn" data-episode-dir="1">Suivant <i class="fa-solid fa-chevron-right"></i></button>
+                <button class="episode-nav-btn" id="prevEpBtn" data-episode-dir="-1"><i class="fa-solid fa-chevron-left"></i> ${t('player.previous')}</button>
+                <span class="episode-nav-label" id="episodeNavLabel">${t('player.ep')} ?</span>
+                <button class="episode-nav-btn" id="nextEpBtn" data-episode-dir="1">${t('player.next')} <i class="fa-solid fa-chevron-right"></i></button>
             </div>
         </div>
     `;

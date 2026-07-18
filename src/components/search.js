@@ -4,6 +4,7 @@ import { escapeHtml, highlightText, getSmallPosterUrl, getYear } from '../utils/
 import { STORAGE_KEYS, SEARCH_SUGGESTION_COUNT } from '../utils/constants.js';
 import { getSearchHistory, saveSearchHistory } from '../services/storage.js';
 import { openPlayer } from '../services/player.js';
+import { t } from '../i18n/index.js';
 
 export default class SearchManager {
     constructor(appInstance) {
@@ -121,14 +122,14 @@ export default class SearchManager {
         const h = this._getHistory();
         if (!h.length) return '';
         return `
-            <div class="suggestion-section-header"><i class="fa-solid fa-clock-rotate-left"></i> Recherches récentes</div>
+            <div class="suggestion-section-header"><i class="fa-solid fa-clock-rotate-left"></i> ${t('search.recent')}</div>
             ${h.slice(0, 5).map(q => `
                 <div class="suggestion-item suggestion-item--history" data-query="${this._esc(q)}">
                     <span class="sug-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
                     <div class="suggestion-info">
                         <span class="suggestion-title">${this._highlight(q, query)}</span>
                     </div>
-                    <button class="sug-remove" data-remove="${this._esc(q)}" title="Supprimer"><i class="fa-solid fa-xmark"></i></button>
+                    <button class="sug-remove" data-remove="${this._esc(q)}" title="${t('search.remove')}"><i class="fa-solid fa-xmark"></i></button>
                 </div>
             `).join('')}
         `;
@@ -137,7 +138,7 @@ export default class SearchManager {
     _renderTrending() {
         if (!this.trendingCache) return '';
         return `
-            <div class="suggestion-section-header"><i class="fa-solid fa-fire"></i> Tendances</div>
+            <div class="suggestion-section-header"><i class="fa-solid fa-fire"></i> ${t('search.trending')}</div>
             ${this.trendingCache.results.map(item => {
                 const title = item.title || item.name;
                 const poster = getSmallPosterUrl(item.poster_path, CONFIG.IMG_URL);
@@ -147,9 +148,9 @@ export default class SearchManager {
                         <img src="${poster}" alt="${this._esc(title)}" loading="lazy" decoding="async">
                         <div class="suggestion-info">
                             <span class="suggestion-title">${this._esc(title)}</span>
-                            <span class="suggestion-meta">${getYear(item) || ''} • ${type === 'movie' ? 'Film' : 'Série'}</span>
+                            <span class="suggestion-meta">${getYear(item) || ''} • ${t(type === 'movie' ? 'common.movie' : 'common.series')}</span>
                         </div>
-                        <span class="sug-badge"><i class="fa-solid fa-arrow-trend-up"></i> Tendance</span>
+                        <span class="sug-badge"><i class="fa-solid fa-arrow-trend-up"></i> ${t('search.trendingBadge')}</span>
                     </div>
                 `;
             }).join('')}
@@ -157,16 +158,16 @@ export default class SearchManager {
     }
 
     _renderResults(items, query) {
-        if (!items || !items.length) return '<div class="suggestion-empty">Aucun résultat trouvé.</div>';
+        if (!items || !items.length) return `<div class="suggestion-empty">${t('search.noResults')}</div>`;
         return `
-            <div class="suggestion-section-header"><i class="fa-solid fa-film"></i> Résultats</div>
+            <div class="suggestion-section-header"><i class="fa-solid fa-film"></i> ${t('search.results')}</div>
             ${items.map(item => {
                 const title = item.title || item.name;
                 const poster = getSmallPosterUrl(item.poster_path, CONFIG.IMG_URL);
-                const year = getYear(item) || 'N/A';
+                const year = getYear(item) || t('common.na');
                 const rating = item.vote_average ? `<i class="fa-solid fa-star"></i> ${item.vote_average.toFixed(1)}` : '';
                 const type = (item.name || item.first_air_date) ? 'tv' : 'movie';
-                const typeLabel = type === 'movie' ? 'Film' : 'Série';
+                const typeLabel = t(type === 'movie' ? 'common.movie' : 'common.series');
                 return `
                     <div class="suggestion-item" data-id="${item.id}" data-type="${type}" data-title="${this._esc(title)}">
                         <img src="${poster}" alt="${this._esc(title)}" loading="lazy" decoding="async">

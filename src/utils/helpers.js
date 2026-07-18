@@ -35,9 +35,13 @@ export function getYear(item) {
 }
 
 export function getPosterUrl(path, configImgUrl) {
-    return path ? configImgUrl + path : 'https://placehold.co/300x450/1a1f2e/white?text=No+Poster';
+    const { t } = window;
+    const text = t ? t('common.noPoster') : 'No+Poster';
+    return path ? configImgUrl + path : `https://placehold.co/300x450/1a1f2e/white?text=${text}`;
 }
 
 export function getSmallPosterUrl(path, configImgUrl) {
-    return path ? configImgUrl + path : 'https://placehold.co/100x150/1a1f2e/white?text=No+Poster';
+    const { t } = window;
+    const text = t ? t('common.noPoster') : 'No+Poster';
+    return path ? configImgUrl + path : `https://placehold.co/100x150/1a1f2e/white?text=${text}`;
 }
