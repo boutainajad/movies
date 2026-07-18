@@ -8,6 +8,7 @@ import { attachGrid } from '../components/grid.js';
 import { attachWatchlist } from '../components/watchlist.js';
 import SearchManager from '../components/search.js';
 import { t } from '../i18n/index.js';
+import { initDetailPage, mountDetailPage } from '../pages/detail.js';
 
 export default class AppUI {
     constructor() {
@@ -42,6 +43,7 @@ export default class AppUI {
         attachCard(this);
         attachGrid(this);
         attachWatchlist(this);
+        initDetailPage(this);
 
         this.init();
     }
@@ -53,13 +55,71 @@ export default class AppUI {
         this.loadContent();
         this.setupInfiniteScroll();
         this._togglePaginationMode();
+        this.setupHashRouting();
 
         window.addEventListener('languagechange', () => {
             this.refreshCurrentView();
         });
     }
 
+    setupHashRouting() {
+        window.addEventListener('hashchange', () => this.handleHash());
+        if (window.location.hash && window.location.hash.length > 1) {
+            this.handleHash();
+        }
+    }
+
+    handleHash() {
+        const hash = window.location.hash.slice(1);
+        if (!hash || hash === '/home') {
+            if (this.state.currentView === 'detail') {
+                const prev = this._prevView || 'home';
+                this.switchPage(prev);
+            }
+            return;
+        }
+        const match = hash.match(/^\/(movie|tv)\/(\d+)/);
+        if (match) {
+            const type = match[1];
+            const id = match[2];
+            this.showMovieDetail(id, type, '', 1, 1);
+        }
+    }
+
+    showMovieDetail(id, type, title, season = 1, episode = 1) {
+        if (this.state.currentView === 'detail' && this._detailId === id) return;
+
+        this._prevView = this.state.currentView;
+
+        const section = document.querySelector('.section');
+        const homeSections = document.getElementById('home-sections');
+        const detailPage = document.getElementById('movie-detail-page');
+
+        this.stopHeroRotation();
+        if (this._heroWrapper) this._heroWrapper.innerHTML = '';
+        if (this._sectionHeader) this._sectionHeader.style.display = 'none';
+        if (this._gridTitle) this._gridTitle.textContent = '';
+        document.querySelectorAll('.genre-list').forEach(el => el.style.display = 'none');
+
+        if (section) section.style.display = 'none';
+        if (homeSections) homeSections.style.display = 'none';
+
+        if (detailPage) {
+            mountDetailPage(id, type, title, season, episode);
+        }
+
+        this._detailId = id;
+        this.state.currentView = 'detail';
+        this.updateNavUI(null);
+
+        const targetHash = `#/${type}/${id}`;
+        if (window.location.hash !== targetHash) {
+            window.location.hash = targetHash;
+        }
+    }
+
     refreshCurrentView() {
+        if (this.state.currentView === 'detail') return;
         if (this.state.currentView === 'watchlist') {
             this.renderWatchlist();
             return;
@@ -286,7 +346,7 @@ export default class AppUI {
 
     async loadContent(clear = false) {
         if (this.state.loading) return;
-        if (this.state.currentView === 'watchlist' || this.state.currentView === 'favorites') return;
+        if (this.state.currentView === 'watchlist' || this.state.currentView === 'favorites' || this.state.currentView === 'detail') return;
         this.state.loading = true;
 
         this.abortController?.abort();
@@ -458,6 +518,15 @@ export default class AppUI {
 
     switchPage(page) {
         if (page !== 'home') this.stopHeroRotation();
+
+        const detailPage = document.getElementById('movie-detail-page');
+        if (detailPage) detailPage.style.display = 'none';
+        const grid = document.getElementById('movie-grid');
+        const gridParent = grid?.closest('.section');
+        if (gridParent) gridParent.style.display = '';
+        const homeSections = document.getElementById('home-sections');
+        if (homeSections) homeSections.style.display = '';
+
         this.state.currentView = page;
         this.state.page = 1;
         this.state.currentGenre = null;
@@ -503,6 +572,11 @@ export default class AppUI {
     }
 
     async performSearch(query, page = 1) {
+        const detailPage = document.getElementById('movie-detail-page');
+        if (detailPage) detailPage.style.display = 'none';
+        const section = document.querySelector('.section');
+        if (section) section.style.display = '';
+
         this.state.currentView = 'search';
         this.state.page = page;
         this.updateNavUI('search');

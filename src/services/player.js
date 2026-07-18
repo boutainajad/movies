@@ -24,6 +24,10 @@ let _currentWatchSession = null;
 export async function openPlayer(id, type, title, season = 1, episode = 1) {
     try {
     console.log(`FILMIX: Opening ${type} with TMDB ID ${id} | S${season}E${episode}`);
+
+    const detailPage = document.getElementById('movie-detail-page');
+    if (detailPage) detailPage.style.display = 'none';
+
     const suggestionsBox = document.getElementById('searchSuggestions');
     if (suggestionsBox) suggestionsBox.style.display = 'none';
     const modal = document.getElementById('playerModal');
@@ -361,7 +365,9 @@ function setupDelegatedListeners() {
         if (episodeItem) {
             e.preventDefault();
             const { id, type, title, season, episode } = episodeItem.dataset;
-            openPlayer(id, type, title, parseInt(season), parseInt(episode));
+            if (_app && _app.showMovieDetail) {
+                _app.showMovieDetail(id, type, title, parseInt(season), parseInt(episode));
+            }
             return;
         }
 
@@ -369,7 +375,9 @@ function setupDelegatedListeners() {
         if (relatedCard) {
             e.preventDefault();
             const { id, type, title } = relatedCard.dataset;
-            openPlayer(id, type, title);
+            if (_app && _app.showMovieDetail) {
+                _app.showMovieDetail(id, type, title);
+            }
             return;
         }
 
@@ -377,7 +385,9 @@ function setupDelegatedListeners() {
         if (rowCard) {
             e.preventDefault();
             const { id, type, title } = rowCard.dataset;
-            openPlayer(id, type, title);
+            if (_app && _app.showMovieDetail) {
+                _app.showMovieDetail(id, type, title);
+            }
             return;
         }
 
@@ -385,7 +395,9 @@ function setupDelegatedListeners() {
         if (continueCard) {
             e.preventDefault();
             const { id, type, title, season, episode } = continueCard.dataset;
-            openPlayer(id, type, title, parseInt(season) || 1, parseInt(episode) || 1);
+            if (_app && _app.showMovieDetail) {
+                _app.showMovieDetail(id, type, title, parseInt(season) || 1, parseInt(episode) || 1);
+            }
             return;
         }
 

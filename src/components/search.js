@@ -205,7 +205,9 @@ export default class SearchManager {
             if (item) {
                 const { id, type, title } = item.dataset;
                 this._saveQuery(title);
-                openPlayer(id, type, title.replace(/'/g, "\\'"));
+                if (window.app && window.app.showMovieDetail) {
+                    window.app.showMovieDetail(id, type, title.replace(/'/g, "\\'"));
+                }
                 this._hide();
             }
         }, { capture: false });

@@ -2,7 +2,6 @@ import CONFIG from '../config.js';
 import TMDB from '../services/tmdb.js';
 import { escapeHtml, waitForImage } from '../utils/helpers.js';
 import { HERO_ROTATION_INTERVAL } from '../utils/constants.js';
-import { openPlayer } from '../services/player.js';
 import { t } from '../i18n/index.js';
 
 export function attachHero(app) {
@@ -109,7 +108,7 @@ export function attachHero(app) {
                 const item = this.heroPool[this.heroIndex];
                 if (!item) return;
                 const type = item.title ? 'movie' : 'tv';
-                openPlayer(item.id, type, item.title || item.name);
+                this.showMovieDetail(item.id, type, item.title || item.name);
             });
         }
 
@@ -120,7 +119,7 @@ export function attachHero(app) {
                 const item = this.heroPool[this.heroIndex];
                 if (!item) return;
                 const type = item.title ? 'movie' : 'tv';
-                openPlayer(item.id, type, item.title || item.name);
+                this.showMovieDetail(item.id, type, item.title || item.name);
             });
         }
     };

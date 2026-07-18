@@ -1,6 +1,5 @@
 import CONFIG from '../config.js';
 import { escapeHtml, safeTitle, getPosterUrl, getYear } from '../utils/helpers.js';
-import { openPlayer } from '../services/player.js';
 import { t } from '../i18n/index.js';
 
 export function attachGrid(app) {
@@ -34,7 +33,7 @@ export function attachGrid(app) {
 
             const card = document.createElement('div');
             card.className = 'movie-card';
-            card.onclick = () => openPlayer(item.id, type, safeTitle(title));
+            card.onclick = () => window.app.showMovieDetail(item.id, type, safeTitle(title));
             card.innerHTML = `
                 <div class="card-poster">
                     <img src="${poster}" alt="${escapedTitle}" loading="lazy" decoding="async">
