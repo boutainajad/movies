@@ -90,7 +90,7 @@ body {
   margin-bottom: 4px;
 }
 
-.nav-item span { font-size: 1.2rem; }
+.nav-item span { font-size: 1.2rem; width: 24px; text-align: center; }
 
 .nav-item:hover, .nav-item.active {
   background-color: rgba(255, 255, 255, 0.05);
@@ -718,6 +718,7 @@ body {
 
   .mobile-nav .nav-item.active { color: var(--primary); background: none; border: none; }
   .mobile-nav .nav-icon { font-size: 1.2rem; }
+  .mobile-nav .nav-icon i { font-size: 1.2rem; }
   .mobile-nav .nav-text { display: block; font-size: 0.65rem; font-weight: 600; }
 
   /* Modal Mobile */

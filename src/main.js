@@ -129,7 +129,7 @@ window.openPlayer = async (id, type, title, season = 1, episode = 1) => {
     sourceBar.innerHTML = Object.keys(CONFIG.SOURCES).map((name, index) => {
         const url = CONFIG.SOURCES[name](id, imdbId, type, season, episode);
         return `<button class="source-btn ${index === 0 ? 'active' : ''}" onclick="setPlayerSource('${url}', '${name}')">${name}</button>`;
-    }).join('') + `<button class="source-btn" style="background:#222" onclick="window.open('${CONFIG.SOURCES['S2 (Vidsrc.to)'](id, imdbId, type, season, episode)}', '_blank')">🌐 New Tab</button>`;
+    }).join('') + `<button class="source-btn" style="background:#222" onclick="window.open('${CONFIG.SOURCES['S2 (Vidsrc.to)'](id, imdbId, type, season, episode)}', '_blank')"><i class="fa-solid fa-globe"></i> New Tab</button>`;
 
     const defaultUrl = CONFIG.SOURCES['S1 (VidLink)'](id, imdbId, type, season, episode);
     setPlayerSource(defaultUrl, 'S1 (VidLink)');
@@ -141,7 +141,7 @@ window.openPlayer = async (id, type, title, season = 1, episode = 1) => {
     if (details) {
         document.getElementById('detailOverview').textContent = details.overview || 'Pas de description disponible.';
         document.getElementById('detailYear').textContent = (details.release_date || details.first_air_date || '').split('-')[0];
-        document.getElementById('detailRating').textContent = '⭐ ' + details.vote_average.toFixed(1);
+        document.getElementById('detailRating').innerHTML = '<i class="fa-solid fa-star"></i> ' + details.vote_average.toFixed(1);
         document.getElementById('detailRuntime').textContent = (details.runtime || details.episode_run_time?.[0] || '?') + ' min';
 
         const episodesContainer = document.getElementById('detailCast'); 
@@ -180,7 +180,7 @@ window.closePlayer = () => {
 
 window.shareMovie = (platform) => {
     const data = window.currentShareData || { title: 'DRAMA MIX', url: window.location.href };
-    const text = encodeURIComponent(`Regarde "${data.title}" gratuitement sur DRAMA MIX ! 🎬\n\n`);
+    const text = encodeURIComponent(`Regarde "${data.title}" gratuitement sur DRAMA MIX ! <i class='fa-solid fa-film'></i>\n\n`);
     const url = encodeURIComponent(data.url);
 
     const links = {
@@ -300,7 +300,7 @@ class AppUI {
                 const title = item.title || item.name;
                 const poster = item.poster_path ? CONFIG.IMG_URL + item.poster_path : 'https://placehold.co/100x150/1a1f2e/white?text=No+Poster';
                 const year = (item.release_date || item.first_air_date || '').split('-')[0] || 'N/A';
-                const rating = item.vote_average ? `⭐ ${item.vote_average.toFixed(1)}` : 'N/A';
+                const rating = item.vote_average ? `<i class="fa-solid fa-star"></i> ${item.vote_average.toFixed(1)}` : 'N/A';
                 const type = (item.name || item.first_air_date) ? 'tv' : 'movie';
                 const typeLabel = type === 'movie' ? 'Film' : 'Série';
 
@@ -389,14 +389,14 @@ class AppUI {
 
             try {
                 const genres = [
-                    { id: null, title: '🔥 Tendances du Moment', type: 'movie' },
-                    { id: 28, title: '💥 Action & Aventure', type: 'movie' },
-                    { id: 10749, title: '💖 Romances & Dramas', type: 'tv' },
-                    { id: 53, title: '🎭 Thrillers Intenses', type: 'movie' },
-                    { id: 35, title: '😂 Comédies Mondiales', type: 'movie' },
-                    { id: 878, title: '🚀 Science-Fiction', type: 'movie' },
-                    { id: 16, title: '🎨 Animation', type: 'movie' },
-                    { id: 80, title: '🔫 Crimes & Séries Noires', type: 'tv' }
+                    { id: null, title: '<i class="fa-solid fa-fire"></i> Tendances du Moment', type: 'movie' },
+                    { id: 28, title: '<i class="fa-solid fa-burst"></i> Action & Aventure', type: 'movie' },
+                    { id: 10749, title: '<i class="fa-solid fa-heart"></i> Romances & Dramas', type: 'tv' },
+                    { id: 53, title: '<i class="fa-solid fa-masks-theater"></i> Thrillers Intenses', type: 'movie' },
+                    { id: 35, title: '<i class="fa-solid fa-face-laugh-beam"></i> Comédies Mondiales', type: 'movie' },
+                    { id: 878, title: '<i class="fa-solid fa-rocket"></i> Science-Fiction', type: 'movie' },
+                    { id: 16, title: '<i class="fa-solid fa-palette"></i> Animation', type: 'movie' },
+                    { id: 80, title: '<i class="fa-solid fa-gun"></i> Crimes & Séries Noires', type: 'tv' }
                 ];
 
                 const promises = genres.map(g => {
@@ -460,8 +460,8 @@ class AppUI {
                         <div class="row-card" onclick="openPlayer('${item.id}', '${type}', '${title.replace(/'/g, "\\'")}')">
                             <img src="${poster}" alt="${title}" loading="lazy">
                             <div class="row-card-overlay">
-                                <div class="row-card-rating">⭐ ${item.vote_average.toFixed(1)}</div>
-                                <div class="row-card-play">▶</div>
+                                <div class="row-card-rating"><i class="fa-solid fa-star"></i> ${item.vote_average.toFixed(1)}</div>
+                                <div class="row-card-play"><i class="fa-solid fa-play"></i></div>
                             </div>
                         </div>
                     `;
@@ -492,8 +492,8 @@ class AppUI {
             card.innerHTML = `
                 <div class="card-poster">
                     <img src="${poster}" alt="${title}" loading="lazy" decoding="async">
-                    <div class="card-rating">⭐ ${rating}</div>
-                    <div class="card-play"><div class="play-icon">▶</div></div>
+                    <div class="card-rating"><i class="fa-solid fa-star"></i> ${rating}</div>
+                    <div class="card-play"><div class="play-icon"><i class="fa-solid fa-play"></i></div></div>
                 </div>
                 <div class="card-info">
                     <div class="card-title">${title}</div>
@@ -519,16 +519,16 @@ class AppUI {
             <div class="hero" onclick="openPlayer('${item.id}', '${type}', '${title.replace(/'/g, "\\'")}')" style="cursor:pointer">
                 <img src="${backdrop}" class="hero-img" alt="${title}">
                 <div class="hero-overlay"></div>
-                <div class="hero-play-central"><div class="play-icon-big">▶</div></div>
+                <div class="hero-play-central"><div class="play-icon-big"><i class="fa-solid fa-play"></i></div></div>
                 <div class="hero-content">
                     <h1>${title}</h1>
                     <div class="hero-meta">
-                        <span>⭐ ${item.vote_average.toFixed(1)}</span>
+                        <span><i class="fa-solid fa-star"></i> ${item.vote_average.toFixed(1)}</span>
                         <span>${(item.release_date || item.first_air_date || '').split('-')[0]}</span>
                         <span>HD / 4K</span>
                     </div>
                     <button class="btn-play">
-                        <span>▶</span> REGARDER MAINTENANT
+                        <span><i class="fa-solid fa-play"></i></span> REGARDER MAINTENANT
                     </button>
                 </div>
             </div>
@@ -563,12 +563,12 @@ class AppUI {
         this.updateNavUI(page);
         
         const titles = {
-            home: '🔥 Tendances Mondiales',
-            movies: '🎬 Films du Monde Entier',
-            series: '📺 Séries & Dramas Mondiaux',
-            watchlist: '🔖 Ma Watchlist'
+            home: '<i class="fa-solid fa-fire"></i> Tendances Mondiales',
+            movies: '<i class="fa-solid fa-film"></i> Films du Monde Entier',
+            series: '<i class="fa-solid fa-tv"></i> Séries & Dramas Mondiaux',
+            watchlist: '<i class="fa-solid fa-bookmark"></i> Ma Watchlist'
         };
-        document.getElementById('grid-title').textContent = titles[page] || 'Résultats';
+        document.getElementById('grid-title').innerHTML = titles[page] || 'Résultats';
         
         // Handle Genre Bar visibility
         const genreBar = document.getElementById('genre-list');
