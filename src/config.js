@@ -8,6 +8,14 @@ export default {
         '94796', '103290', '96648', '212005', '134015',
         '155452', '124976'
     ],
+    ADS: {
+        ENABLED: true,
+        // MUST BE A REAL DIRECT LINK URL FROM ADSTERRA (e.g. https://www.highcpmrevenuegate.com/...), NOT A .JS SCRIPT
+        DIRECT_LINK: 'https://www.highcpmrevenuegate.com/YOUR_ADSTERRA_DIRECT_LINK_HERE',
+        POPUNDER_ENABLED: true,
+        SHOW_OVERLAY: true,
+        RESET_OVERLAY_ON_SOURCE_CHANGE: false
+    },
     SOURCES: {
         'S1 (VidLink)': (tmdb, imdb, type, s, e) => type === 'movie' ? `https://vidlink.pro/movie/${tmdb}?primaryColor=e50914` : `https://vidlink.pro/tv/${tmdb}/${s}/${e}?primaryColor=e50914`,
         'S2 (Vidsrc.to)': (tmdb, imdb, type, s, e) => {

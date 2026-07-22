@@ -117,13 +117,24 @@ export async function mountDetailPage(id, type, title, season = 1, episode = 1) 
             <div class="detail-player-section">
                 <h3 class="detail-section-title"><i class="fa-solid fa-globe"></i> Where to Watch</h3>
                 <div class="source-bar" id="detailPageSourceBar">${sourceBarHTML}</div>
+                <div class="ad-banner-slot" id="detailAdTop"></div>
                 <div class="player-wrapper">
                     <div class="player-loading" id="detailPageLoading">
                         <div class="spinner"></div>
                         <span class="player-loading-text">${t('player.loading')}</span>
                     </div>
+                    ${CONFIG.ADS?.ENABLED && CONFIG.ADS?.SHOW_OVERLAY ? `
+                    <div class="player-ad-overlay" id="detailAdOverlay">
+                        <div class="ad-overlay-content">
+                            <div class="ad-play-btn"><i class="fa-solid fa-play"></i></div>
+                            <span class="ad-play-text"><i class="fa-solid fa-circle-play"></i> Click to Play / اضغط للتشغيل</span>
+                            <span class="ad-badge">HD Stream</span>
+                        </div>
+                    </div>
+                    ` : ''}
                     <iframe id="detailPageFrame" src="${escapeHtml(defaultUrl)}" allow="autoplay; encrypted-media; fullscreen" allowfullscreen referrerpolicy="origin"></iframe>
                 </div>
+                <div class="ad-banner-slot" id="detailAdBottom"></div>
             </div>
             <div class="detail-related-section">
                 <h3 class="detail-section-title"><i class="fa-solid fa-list"></i> ${t('player.related')}</h3>
@@ -264,6 +275,16 @@ function attachDetailListeners() {
             shareMovie(btn.dataset.platform);
         });
     });
+
+    const adOverlay = document.getElementById('detailAdOverlay');
+    if (adOverlay) {
+        adOverlay.addEventListener('click', () => {
+            if (CONFIG.ADS?.ENABLED && CONFIG.ADS?.DIRECT_LINK) {
+                window.open(CONFIG.ADS.DIRECT_LINK, '_blank');
+            }
+            adOverlay.classList.add('hidden');
+        });
+    }
 }
 
 function setDetailSource(url, sourceName) {

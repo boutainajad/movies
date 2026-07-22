@@ -20,6 +20,7 @@ let _playerEpisode = 1;
 let _playerImdbId = '';
 let _currentShareData = null;
 let _currentWatchSession = null;
+let _lastAdShownTime = 0;
 
 export async function openPlayer(id, type, title, season = 1, episode = 1) {
     try {
@@ -99,6 +100,15 @@ export async function openPlayer(id, type, title, season = 1, episode = 1) {
     const sourceFn = CONFIG.SOURCES[defaultSource];
     const defaultUrl = sourceFn ? sourceFn(id, imdbId, type, activeSeason, activeEpisode) : '';
     setPlayerSource(defaultUrl, defaultSource);
+
+    const modalAdOverlay = document.getElementById('modalAdOverlay');
+    if (modalAdOverlay) {
+        if (CONFIG.ADS?.ENABLED && CONFIG.ADS?.SHOW_OVERLAY) {
+            modalAdOverlay.classList.remove('hidden');
+        } else {
+            modalAdOverlay.classList.add('hidden');
+        }
+    }
 
     document.title = t('doc.player', { title });
     _currentShareData = { title, url: window.location.href, id };
@@ -190,6 +200,8 @@ export async function openPlayer(id, type, title, season = 1, episode = 1) {
             playbackTime: initialTime,
             duration: duration
         };
+        
+        _lastAdShownTime = initialTime;
 
         _watchInterval = setInterval(() => {
             const modalCheck = document.getElementById('playerModal');
@@ -202,6 +214,15 @@ export async function openPlayer(id, type, title, season = 1, episode = 1) {
             _currentWatchSession.playbackTime += 3;
             if (_currentWatchSession.playbackTime > _currentWatchSession.duration) {
                 _currentWatchSession.playbackTime = _currentWatchSession.duration;
+            }
+
+            // Mid-roll ad logic: show banner every 10 minutes (600 seconds)
+            if (_currentWatchSession.playbackTime - _lastAdShownTime >= 600) {
+                const adBanner = document.getElementById('midRollAdBanner');
+                if (adBanner) {
+                    adBanner.classList.remove('hidden');
+                }
+                _lastAdShownTime = _currentWatchSession.playbackTime;
             }
 
             const list = getContinueWatching();
@@ -340,6 +361,16 @@ async function loadEpisodes(id, seasonNumber, title) {
 
 function setupDelegatedListeners() {
     document.addEventListener('click', (e) => {
+        const adOverlay = e.target.closest('#modalAdOverlay');
+        if (adOverlay) {
+            e.preventDefault();
+            if (CONFIG.ADS?.ENABLED && CONFIG.ADS?.DIRECT_LINK) {
+                window.open(CONFIG.ADS.DIRECT_LINK, '_blank');
+            }
+            adOverlay.classList.add('hidden');
+            return;
+        }
+
         const sourceBtn = e.target.closest('.source-btn[data-source-url]');
         if (sourceBtn) {
             e.preventDefault();
@@ -429,6 +460,13 @@ function setupDelegatedListeners() {
         if (shareBtn) {
             e.preventDefault();
             shareMovie(shareBtn.dataset.platform);
+            return;
+        }
+
+        const closeAdBtn = e.target.closest('#closeMidRollBtn');
+        if (closeAdBtn) {
+            e.preventDefault();
+            document.getElementById('midRollAdBanner')?.classList.add('hidden');
             return;
         }
     });
